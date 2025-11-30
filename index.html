@@ -41,6 +41,13 @@
             margin-bottom: 5px;
         }
 
+        .legend-item.active {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
         .legend-color {
             width: 15px;
             height: 15px;
@@ -86,6 +93,7 @@
         regionColors.forEach(region => {
             const item = document.createElement('div');
             item.className = 'legend-item';
+            item.setAttribute('data-region', region.name); // Add data attribute for easy selection
             item.innerHTML = `
                 <div class="legend-color" style="background-color: ${region.color};"></div>
                 <span>${region.name}</span>
@@ -137,13 +145,28 @@
 
         map.on('load', function () {
             // Change the cursor to a pointer when the mouse is over the places layer.
-            map.on('mouseenter', 'philippines-fill', function () {
+            map.on('mouseenter', 'philippines-fill', function (e) {
                 map.getCanvas().style.cursor = 'pointer';
+
+                // Highlight legend item
+                if (e.features.length > 0) {
+                    const regionName = e.features[0].properties.name;
+                    const legendItem = document.querySelector(`.legend-item[data-region="${regionName}"]`);
+                    if (legendItem) {
+                        legendItem.classList.add('active');
+                        legendItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }
             });
 
             // Change it back to a pointer when it leaves.
             map.on('mouseleave', 'philippines-fill', function () {
                 map.getCanvas().style.cursor = '';
+
+                // Remove highlight from all legend items
+                document.querySelectorAll('.legend-item.active').forEach(item => {
+                    item.classList.remove('active');
+                });
             });
 
             map.on('click', 'philippines-fill', function (e) {
