@@ -7,7 +7,33 @@ body {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 100%;
+    left: 250px; /* Adjust based on layer-panel width */
+    width: calc(100% - 250px); /* Adjust based on layer-panel width */
+}
+
+#layer-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 250px; /* Fixed width for the panel */
+    background-color: #f8f8f8;
+    padding: 10px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    z-index: 1;
+    overflow-y: auto;
+    font-family: sans-serif;
+}
+
+#layer-panel h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+#layer-panel #layer-content {
+    margin-top: 15px;
+    color: #555;
+    font-size: 14px;
 }
 
 #legend {
