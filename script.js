@@ -1,3 +1,5 @@
+// Defines an array of objects, where each object represents a region
+// and its corresponding color for display on the map.
 const regionColors = [
     { name: 'Autonomous Region in Muslim Mindanao', color: '#e6194b' },
     { name: 'Bicol', color: '#3cb44b' },
@@ -18,14 +20,16 @@ const regionColors = [
     { name: 'Zamboanga Peninsula', color: '#808000' }
 ];
 
-// Generate match expression for map style
+// Generates a Mapbox GL JS match expression to dynamically set fill colors for regions
+// based on their 'name' property. This allows different regions to have distinct colors.
 const matchExpression = ['match', ['get', 'name']];
 regionColors.forEach(region => {
     matchExpression.push(region.name, region.color);
 });
-matchExpression.push('#cccccc'); // Default color
+matchExpression.push('#cccccc'); // Default color for regions not explicitly listed
 
-// Populate legend
+// Populates the legend dynamically based on the `regionColors` array.
+// Each region gets a color swatch and its name displayed in the legend.
 const legend = document.getElementById('legend');
 regionColors.forEach(region => {
     const item = document.createElement('div');
@@ -38,6 +42,9 @@ regionColors.forEach(region => {
     legend.appendChild(item);
 });
 
+// Initializes the MapLibre GL JS map.
+// It sets the container, defines the map style (sources and layers),
+// and sets the initial center coordinates and zoom level.
 var map = new maplibregl.Map({
     container: 'map',
     style: {
@@ -80,8 +87,11 @@ var map = new maplibregl.Map({
     zoom: 5 // Initial zoom level
 });
 
+// Event listener that fires once the map has finished loading.
+// This is where interactive behaviors for the map are defined.
 map.on('load', function () {
-    // Change the cursor to a pointer when the mouse is over the places layer.
+    // Event listener for when the mouse enters a Philippine region.
+    // It changes the cursor to a pointer and highlights the corresponding legend item.
     map.on('mouseenter', 'philippines-fill', function (e) {
         map.getCanvas().style.cursor = 'pointer';
 
@@ -96,7 +106,8 @@ map.on('load', function () {
         }
     });
 
-    // Change it back to a pointer when it leaves.
+    // Event listener for when the mouse leaves a Philippine region.
+    // It resets the cursor and removes the highlight from all legend items.
     map.on('mouseleave', 'philippines-fill', function () {
         map.getCanvas().style.cursor = '';
 
@@ -106,6 +117,8 @@ map.on('load', function () {
         });
     });
 
+    // Event listener for when a user clicks on a Philippine region.
+    // It displays a popup with the name of the clicked region.
     map.on('click', 'philippines-fill', function (e) {
         var coordinates = e.lngLat;
         var description = e.features[0].properties.name;
