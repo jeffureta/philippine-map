@@ -1,0 +1,118 @@
+const regionColors = [
+    { name: 'Autonomous Region in Muslim Mindanao', color: '#e6194b' },
+    { name: 'Bicol', color: '#3cb44b' },
+    { name: 'Cagayan Valley', color: '#ffe119' },
+    { name: 'Calabarzon', color: '#4363d8' },
+    { name: 'Caraga', color: '#f58231' },
+    { name: 'Central Luzon', color: '#911eb4' },
+    { name: 'Central Visayas', color: '#46f0f0' },
+    { name: 'Cordillera Administrative Region', color: '#f032e6' },
+    { name: 'Davao', color: '#bcf60c' },
+    { name: 'Eastern Visayas', color: '#fabebe' },
+    { name: 'Ilocos', color: '#008080' },
+    { name: 'Mimaropa', color: '#e6beff' },
+    { name: 'National Capital Region', color: '#9a6324' },
+    { name: 'Northern Mindanao', color: '#fffac8' },
+    { name: 'Soccsksargen', color: '#800000' },
+    { name: 'Western Visayas', color: '#aaffc3' },
+    { name: 'Zamboanga Peninsula', color: '#808000' }
+];
+
+// Generate match expression for map style
+const matchExpression = ['match', ['get', 'name']];
+regionColors.forEach(region => {
+    matchExpression.push(region.name, region.color);
+});
+matchExpression.push('#cccccc'); // Default color
+
+// Populate legend
+const legend = document.getElementById('legend');
+regionColors.forEach(region => {
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.setAttribute('data-region', region.name); // Add data attribute for easy selection
+    item.innerHTML = `
+        <div class="legend-color" style="background-color: ${region.color};"></div>
+        <span>${region.name}</span>
+    `;
+    legend.appendChild(item);
+});
+
+var map = new maplibregl.Map({
+    container: 'map',
+    style: {
+        version: 8,
+        sources: {
+            'philippines': {
+                type: 'geojson',
+                data: './ph.json' // Path to your GeoJSON file
+            }
+        },
+        layers: [
+            {
+                id: 'background',
+                type: 'background',
+                paint: {
+                    'background-color': '#f2f2f2' // Light grey background
+                }
+            },
+            {
+                id: 'philippines-fill',
+                type: 'fill',
+                source: 'philippines',
+                paint: {
+                    'fill-color': matchExpression,
+                    'fill-opacity': 0.8
+                }
+            },
+            {
+                id: 'philippines-borders',
+                type: 'line',
+                source: 'philippines',
+                paint: {
+                    'line-color': '#ffffff', // White color from ph.svg
+                    'line-width': 0.5
+                }
+            }
+        ]
+    },
+    center: [121.7740, 12.8797], // Approximate center of the Philippines [lng, lat]
+    zoom: 5 // Initial zoom level
+});
+
+map.on('load', function () {
+    // Change the cursor to a pointer when the mouse is over the places layer.
+    map.on('mouseenter', 'philippines-fill', function (e) {
+        map.getCanvas().style.cursor = 'pointer';
+
+        // Highlight legend item
+        if (e.features.length > 0) {
+            const regionName = e.features[0].properties.name;
+            const legendItem = document.querySelector(`.legend-item[data-region="${regionName}"]`);
+            if (legendItem) {
+                legendItem.classList.add('active');
+                legendItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+    });
+
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'philippines-fill', function () {
+        map.getCanvas().style.cursor = '';
+
+        // Remove highlight from all legend items
+        document.querySelectorAll('.legend-item.active').forEach(item => {
+            item.classList.remove('active');
+        });
+    });
+
+    map.on('click', 'philippines-fill', function (e) {
+        var coordinates = e.lngLat;
+        var description = e.features[0].properties.name;
+
+        new maplibregl.Popup()
+            .setLngLat(coordinates)
+            .setHTML('<strong>' + description + '</strong>')
+            .addTo(map);
+    });
+});
