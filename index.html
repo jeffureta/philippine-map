@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <title>Philippine Map</title>
@@ -7,10 +8,20 @@
     <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
     <link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
     <style>
-        body { margin: 0; padding: 0; }
-        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
+
 <body>
     <div id='map'></div>
     <script>
@@ -30,7 +41,28 @@
                         type: 'fill',
                         source: 'philippines',
                         paint: {
-                            'fill-color': '#6f9c76', // Green color from ph.svg
+                            'fill-color': [
+                                'match',
+                                ['get', 'name'],
+                                'Autonomous Region in Muslim Mindanao', '#e6194b',
+                                'Bicol', '#3cb44b',
+                                'Cagayan Valley', '#ffe119',
+                                'Calabarzon', '#4363d8',
+                                'Caraga', '#f58231',
+                                'Central Luzon', '#911eb4',
+                                'Central Visayas', '#46f0f0',
+                                'Cordillera Administrative Region', '#f032e6',
+                                'Davao', '#bcf60c',
+                                'Eastern Visayas', '#fabebe',
+                                'Ilocos', '#008080',
+                                'Mimaropa', '#e6beff',
+                                'National Capital Region', '#9a6324',
+                                'Northern Mindanao', '#fffac8',
+                                'Soccsksargen', '#800000',
+                                'Western Visayas', '#aaffc3',
+                                'Zamboanga Peninsula', '#808000',
+                                '#cccccc' // Default color
+                            ],
                             'fill-opacity': 0.8
                         }
                     },
@@ -49,9 +81,28 @@
             zoom: 5 // Initial zoom level
         });
 
-        map.on('load', function() {
-            // You can add more layers or interactions here if needed
+        map.on('load', function () {
+            // Change the cursor to a pointer when the mouse is over the places layer.
+            map.on('mouseenter', 'philippines-fill', function () {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+
+            // Change it back to a pointer when it leaves.
+            map.on('mouseleave', 'philippines-fill', function () {
+                map.getCanvas().style.cursor = '';
+            });
+
+            map.on('click', 'philippines-fill', function (e) {
+                var coordinates = e.lngLat;
+                var description = e.features[0].properties.name;
+
+                new maplibregl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML('<strong>' + description + '</strong>')
+                    .addTo(map);
+            });
         });
     </script>
 </body>
+
 </html>
