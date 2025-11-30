@@ -36,6 +36,28 @@ body {
     font-size: 14px;
 }
 
+#layer-panel #layer-content h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.region-poverty-data {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.region-poverty-data h5 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #0056b3;
+}
+
 #legend {
     position: absolute;
     top: 10px;

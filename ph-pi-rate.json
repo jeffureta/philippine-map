@@ -1,0 +1,128 @@
+[
+  {
+    "Region": "Philippines",
+    "Poverty_Threshold_2_15": "2.99%",
+    "Poverty_Threshold_3_65": "17.99%",
+    "Poverty_Threshold_6_85": "55.27%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Ilocos Region",
+    "Poverty_Threshold_2_15": "2.07%",
+    "Poverty_Threshold_3_65": "13.87%",
+    "Poverty_Threshold_6_85": "55.39%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Cagayan Valley",
+    "Poverty_Threshold_2_15": "1.80%",
+    "Poverty_Threshold_3_65": "15.11%",
+    "Poverty_Threshold_6_85": "54.81%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Central Luzon",
+    "Poverty_Threshold_2_15": "1.36%",
+    "Poverty_Threshold_3_65": "11.11%",
+    "Poverty_Threshold_6_85": "50.37%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Calabarzon",
+    "Poverty_Threshold_2_15": "1.05%",
+    "Poverty_Threshold_3_65": "10.05%",
+    "Poverty_Threshold_6_85": "44.41%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Mimaropa",
+    "Poverty_Threshold_2_15": "3.46%",
+    "Poverty_Threshold_3_65": "20.44%",
+    "Poverty_Threshold_6_85": "59.13%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Bicol Region",
+    "Poverty_Threshold_2_15": "4.29%",
+    "Poverty_Threshold_3_65": "28.75%",
+    "Poverty_Threshold_6_85": "69.37%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Western Visayas",
+    "Poverty_Threshold_2_15": "2.49%",
+    "Poverty_Threshold_3_65": "18.69%",
+    "Poverty_Threshold_6_85": "58.13%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Central Visayas",
+    "Poverty_Threshold_2_15": "6.21%",
+    "Poverty_Threshold_3_65": "27.10%",
+    "Poverty_Threshold_6_85": "64.48%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Eastern Visayas",
+    "Poverty_Threshold_2_15": "5.18%",
+    "Poverty_Threshold_3_65": "28.54%",
+    "Poverty_Threshold_6_85": "68.09%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Zamboanga Peninsula",
+    "Poverty_Threshold_2_15": "7.27%",
+    "Poverty_Threshold_3_65": "29.63%",
+    "Poverty_Threshold_6_85": "67.39%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Northern Mindanao",
+    "Poverty_Threshold_2_15": "4.89%",
+    "Poverty_Threshold_3_65": "25.83%",
+    "Poverty_Threshold_6_85": "66.17%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Davao Region",
+    "Poverty_Threshold_2_15": "2.48%",
+    "Poverty_Threshold_3_65": "16.36%",
+    "Poverty_Threshold_6_85": "55.81%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Soccsksargen",
+    "Poverty_Threshold_2_15": "6.24%",
+    "Poverty_Threshold_3_65": "27.79%",
+    "Poverty_Threshold_6_85": "65.79%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Metro Manila",
+    "Poverty_Threshold_2_15": "0.09%",
+    "Poverty_Threshold_3_65": "3.36%",
+    "Poverty_Threshold_6_85": "31.63%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Cordillera Administrative Region",
+    "Poverty_Threshold_2_15": "0.89%",
+    "Poverty_Threshold_3_65": "9.75%",
+    "Poverty_Threshold_6_85": "43.20%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Bangsamoro",
+    "Poverty_Threshold_2_15": "6.52%",
+    "Poverty_Threshold_3_65": "36.66%",
+    "Poverty_Threshold_6_85": "86.65%",
+    "Year_of_Estimate": 2021
+  },
+  {
+    "Region": "Caraga",
+    "Poverty_Threshold_2_15": "6.46%",
+    "Poverty_Threshold_3_65": "32.78%",
+    "Poverty_Threshold_6_85": "70.39%",
+    "Year_of_Estimate": 2021
+  }
+]
