@@ -140,20 +140,6 @@ map.on('load', function () {
                 const title = document.createElement('h4');
                 title.textContent = 'Poverty Incidence Data (2021)';
                 layerContent.appendChild(title);
-
-                // Iterate over each region's data and create HTML elements
-                data.forEach(regionData => {
-                    const regionDiv = document.createElement('div');
-                    regionDiv.className = 'region-poverty-data';
-                    regionDiv.innerHTML = `
-                        <h5>${regionData.Region}</h5>
-                        <p><strong>Poverty Threshold ($2.15/day):</strong> ${regionData.Poverty_Threshold_2_15}</p>
-                        <p><strong>Poverty Threshold ($3.65/day):</strong> ${regionData.Poverty_Threshold_3_65}</p>
-                        <p><strong>Poverty Threshold ($6.85/day):</strong> ${regionData.Poverty_Threshold_6_85}</p>
-                        <p><em>Year of Estimate: ${regionData.Year_of_Estimate}</em></p>
-                    `;
-                    layerContent.appendChild(regionDiv);
-                });
             })
             .catch(error => {
                 console.error('Error fetching poverty data:', error);
