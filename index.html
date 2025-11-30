@@ -19,12 +19,80 @@
             bottom: 0;
             width: 100%;
         }
+
+        #legend {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+            font-family: sans-serif;
+            font-size: 12px;
+            width: 200px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            margin-right: 8px;
+            border: 1px solid #ccc;
+        }
     </style>
 </head>
 
 <body>
     <div id='map'></div>
+    <div id='legend'></div>
     <script>
+        const regionColors = [
+            { name: 'Autonomous Region in Muslim Mindanao', color: '#e6194b' },
+            { name: 'Bicol', color: '#3cb44b' },
+            { name: 'Cagayan Valley', color: '#ffe119' },
+            { name: 'Calabarzon', color: '#4363d8' },
+            { name: 'Caraga', color: '#f58231' },
+            { name: 'Central Luzon', color: '#911eb4' },
+            { name: 'Central Visayas', color: '#46f0f0' },
+            { name: 'Cordillera Administrative Region', color: '#f032e6' },
+            { name: 'Davao', color: '#bcf60c' },
+            { name: 'Eastern Visayas', color: '#fabebe' },
+            { name: 'Ilocos', color: '#008080' },
+            { name: 'Mimaropa', color: '#e6beff' },
+            { name: 'National Capital Region', color: '#9a6324' },
+            { name: 'Northern Mindanao', color: '#fffac8' },
+            { name: 'Soccsksargen', color: '#800000' },
+            { name: 'Western Visayas', color: '#aaffc3' },
+            { name: 'Zamboanga Peninsula', color: '#808000' }
+        ];
+
+        // Generate match expression for map style
+        const matchExpression = ['match', ['get', 'name']];
+        regionColors.forEach(region => {
+            matchExpression.push(region.name, region.color);
+        });
+        matchExpression.push('#cccccc'); // Default color
+
+        // Populate legend
+        const legend = document.getElementById('legend');
+        regionColors.forEach(region => {
+            const item = document.createElement('div');
+            item.className = 'legend-item';
+            item.innerHTML = `
+                <div class="legend-color" style="background-color: ${region.color};"></div>
+                <span>${region.name}</span>
+            `;
+            legend.appendChild(item);
+        });
+
         var map = new maplibregl.Map({
             container: 'map',
             style: {
@@ -41,28 +109,7 @@
                         type: 'fill',
                         source: 'philippines',
                         paint: {
-                            'fill-color': [
-                                'match',
-                                ['get', 'name'],
-                                'Autonomous Region in Muslim Mindanao', '#e6194b',
-                                'Bicol', '#3cb44b',
-                                'Cagayan Valley', '#ffe119',
-                                'Calabarzon', '#4363d8',
-                                'Caraga', '#f58231',
-                                'Central Luzon', '#911eb4',
-                                'Central Visayas', '#46f0f0',
-                                'Cordillera Administrative Region', '#f032e6',
-                                'Davao', '#bcf60c',
-                                'Eastern Visayas', '#fabebe',
-                                'Ilocos', '#008080',
-                                'Mimaropa', '#e6beff',
-                                'National Capital Region', '#9a6324',
-                                'Northern Mindanao', '#fffac8',
-                                'Soccsksargen', '#800000',
-                                'Western Visayas', '#aaffc3',
-                                'Zamboanga Peninsula', '#808000',
-                                '#cccccc' // Default color
-                            ],
+                            'fill-color': matchExpression,
                             'fill-opacity': 0.8
                         }
                     },
