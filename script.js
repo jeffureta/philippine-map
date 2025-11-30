@@ -91,37 +91,35 @@ var map = new maplibregl.Map({
 // This is where interactive behaviors for the map are defined.
 map.on('load', function () {
     // Event listener for when the mouse enters a Philippine region.
-    // It changes the cursor to a pointer and highlights the corresponding legend item.
+    // It changes the cursor to a pointer.
     map.on('mouseenter', 'philippines-fill', function (e) {
         map.getCanvas().style.cursor = 'pointer';
-
-        // Highlight legend item
-        if (e.features.length > 0) {
-            const regionName = e.features[0].properties.name;
-            const legendItem = document.querySelector(`.legend-item[data-region="${regionName}"]`);
-            if (legendItem) {
-                legendItem.classList.add('active');
-                legendItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        }
     });
 
     // Event listener for when the mouse leaves a Philippine region.
-    // It resets the cursor and removes the highlight from all legend items.
+    // It resets the cursor.
     map.on('mouseleave', 'philippines-fill', function () {
         map.getCanvas().style.cursor = '';
-
-        // Remove highlight from all legend items
-        document.querySelectorAll('.legend-item.active').forEach(item => {
-            item.classList.remove('active');
-        });
     });
 
     // Event listener for when a user clicks on a Philippine region.
-    // It displays a popup with the name of the clicked region.
+    // It displays a popup with the name of the clicked region and highlights the legend item.
     map.on('click', 'philippines-fill', function (e) {
         var coordinates = e.lngLat;
         var description = e.features[0].properties.name;
+
+        // Highlight legend item
+        // Remove highlight from all legend items first
+        document.querySelectorAll('.legend-item.active').forEach(item => {
+            item.classList.remove('active');
+        });
+
+        const regionName = e.features[0].properties.name;
+        const legendItem = document.querySelector(`.legend-item[data-region="${regionName}"]`);
+        if (legendItem) {
+            legendItem.classList.add('active');
+            legendItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
 
         new maplibregl.Popup()
             .setLngLat(coordinates)
