@@ -1,3 +1,6 @@
+// This section initializes the map and its related functionalities.
+// It can be modularized into a separate 'map-module.js' file.
+
 // Initialize the map
 const map = new maplibregl.Map({
     container: 'map',
@@ -67,6 +70,9 @@ map.on('load', function () {
             .addTo(map);
     });
 });
+
+// This section handles the event listeners for the poverty data layers.
+// It can be modularized into a separate 'ui-module.js' or 'sidebar-module.js' file.
 
 // Get references to the layer elements
 const povertyIncidenceData = document.getElementById('poverty-incidence-data');
