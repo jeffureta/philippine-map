@@ -1,36 +1,79 @@
-// This section handles the event listeners for the poverty data layers.
-// It can be modularized into a separate 'ui-module.js' or 'sidebar-module.js' file.
+// Data for the layers. This could be fetched from a JSON file in the future.
+const layerData = [
+    {
+        id: 'poverty-incidence-data',
+        name: 'Poverty Incidence Data (2021)',
+        subLayers: [
+            { id: 'poverty-threshold-215', name: 'Poverty Threshold $2.15' },
+            { id: 'poverty-threshold-365', name: 'Poverty Threshold $3.65' },
+            { id: 'poverty-threshold-685', name: 'Poverty Threshold $6.85' }
+        ]
+    }
+    // Other main layers can be added here
+];
 
+/**
+ * Creates and returns a DOM element for a single layer or a layer group.
+ * @param {object} layer - An object containing layer information.
+ * @returns {HTMLElement} - The created layer element.
+ */
+function createLayerElement(layer) {
+    const layerItem = document.createElement('div');
+    layerItem.id = layer.id;
+    layerItem.className = 'layer-item';
+    layerItem.textContent = layer.name;
+
+    if (layer.subLayers && layer.subLayers.length > 0) {
+        const subLayersContainer = document.createElement('div');
+        // Use a more specific ID for the sub-layer container
+        subLayersContainer.id = `${layer.id}-sub-layers`;
+        subLayersContainer.className = 'sub-layers';
+        subLayersContainer.style.display = 'none'; // Initially hidden
+
+        layer.subLayers.forEach(subLayerData => {
+            const subLayerItem = createLayerElement(subLayerData); // Recursive call for sub-layers
+            subLayerItem.classList.add('sub-layer-item');
+            subLayersContainer.appendChild(subLayerItem);
+        });
+
+        layerItem.appendChild(subLayersContainer);
+
+        // Toggle visibility of sub-layers on click
+        layerItem.addEventListener('click', (event) => {
+            // Make sure we are not clicking a sub-layer
+            if (event.target === layerItem) {
+                const isHidden = subLayersContainer.style.display === 'none' || subLayersContainer.style.display === '';
+                subLayersContainer.style.display = isHidden ? 'block' : 'none';
+            }
+        });
+    } else {
+        // Handle click for individual layers (that are not groups)
+        layerItem.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent parent handlers from being notified
+            console.log(`Layer clicked: ${layer.name}`);
+            // Add specific logic for this layer here
+        });
+    }
+
+    return layerItem;
+}
+
+/**
+ * Initializes the sidebar by generating the layer content dynamically.
+ */
 function initializeSidebar() {
-    // Get references to the layer elements
-    const povertyIncidenceData = document.getElementById('poverty-incidence-data');
-    const povertyThresholdLayers = document.getElementById('poverty-threshold-layers');
+    const layerContent = document.getElementById('layer-content');
+    if (!layerContent) {
+        console.error('The "layer-content" element was not found in the DOM.');
+        return;
+    }
 
-    // Add event listener to toggle visibility of sub-layers
-    povertyIncidenceData.addEventListener('click', () => {
-        if (povertyThresholdLayers.style.display === 'none' || povertyThresholdLayers.style.display === '') {
-            povertyThresholdLayers.style.display = 'block';
-        } else {
-            povertyThresholdLayers.style.display = 'none';
-        }
-    });
+    // Clear any existing content
+    layerContent.innerHTML = '';
 
-    // Optional: Add event listeners for sub-layers if they need to do something
-    document.getElementById('poverty-threshold-215').addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent click from bubbling up to parent
-        console.log('Poverty Threshold $2.15 clicked');
-        // Add logic for this layer
-    });
-
-    document.getElementById('poverty-threshold-365').addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent click from bubbling up to parent
-        console.log('Poverty Threshold $3.65 clicked');
-        // Add logic for this layer
-    });
-
-    document.getElementById('poverty-threshold-685').addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent click from bubbling up to parent
-        console.log('Poverty Threshold $6.85 clicked');
-        // Add logic for this layer
+    // Generate and append new layer elements
+    layerData.forEach(layer => {
+        const layerElement = createLayerElement(layer);
+        layerContent.appendChild(layerElement);
     });
 }
