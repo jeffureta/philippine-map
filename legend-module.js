@@ -27,10 +27,24 @@ function initializeLegend() {
     regionColors.forEach(region => {
         const item = document.createElement('div');
         item.className = 'legend-item';
+        item.setAttribute('data-region', region.name); // Add data attribute for easy selection
         item.innerHTML = `
             <div class="legend-color" style="background-color: ${region.color};"></div>
             <span>${region.name}</span>
         `;
         legend.appendChild(item);
     });
+}
+
+function highlightLegendItem(regionName) {
+    // Remove highlight from all legend items first
+    document.querySelectorAll('.legend-item.active').forEach(item => {
+        item.classList.remove('active');
+    });
+
+    const legendItem = document.querySelector(`.legend-item[data-region="${regionName}"]`);
+    if (legendItem) {
+        legendItem.classList.add('active');
+        legendItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
 }

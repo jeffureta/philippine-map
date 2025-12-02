@@ -63,6 +63,11 @@ function initializeMap() {
             var coordinates = e.lngLat;
             var description = e.features[0].properties.name;
 
+            // Highlight the legend item
+            if (typeof highlightLegendItem === 'function') {
+                highlightLegendItem(description);
+            }
+
             new maplibregl.Popup()
                 .setLngLat(coordinates)
                 .setHTML('<strong>' + description + '</strong>')
