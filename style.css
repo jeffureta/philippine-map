@@ -41,7 +41,8 @@ body {
 }
 
 .sub-layers {
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     padding-left: 15px;
     border-left: 2px solid #ccc;
     margin-top: 5px;
@@ -54,11 +55,26 @@ body {
 
 #legend {
     position: absolute;
-    bottom: 10px;
+    top: 10px;
     right: 10px;
     background-color: white;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.legend-color {
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+    border: 1px solid #ccc;
 }

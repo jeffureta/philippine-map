@@ -11,41 +11,28 @@ const map = new maplibregl.Map({
 
 map.on('load', function () {
     initializeSidebar();
+    initializeLegend();
+
     // Add a geojson source for the Philippine map
     map.addSource('philippines', {
         type: 'geojson',
         data: 'ph.json' // Your GeoJSON file
     });
 
-    // Add a layer to display the Philippine regions
+    // Generate match expression for map style from regionColors (defined in legend-module.js)
+    const matchExpression = ['match', ['get', 'name']];
+    regionColors.forEach(region => {
+        matchExpression.push(region.name, region.color);
+    });
+    matchExpression.push('#cccccc'); // Default color
+
     // Add a layer to display the Philippine regions
     map.addLayer({
         id: 'philippines-layer',
         type: 'fill',
         source: 'philippines',
         paint: {
-            'fill-color': [
-                'match',
-                ['get', 'name'],
-                'Autonomous Region in Muslim Mindanao', '#e6194b',
-                'Bicol', '#3cb44b',
-                'Cagayan Valley', '#ffe119',
-                'Calabarzon', '#4363d8',
-                'Caraga', '#f58231',
-                'Central Luzon', '#911eb4',
-                'Central Visayas', '#46f0f0',
-                'Cordillera Administrative Region', '#f032e6',
-                'Davao', '#bcf60c',
-                'Eastern Visayas', '#fabebe',
-                'Ilocos', '#008080',
-                'Mimaropa', '#e6beff',
-                'National Capital Region', '#9a6324',
-                'Northern Mindanao', '#fffac8',
-                'Soccsksargen', '#800000',
-                'Western Visayas', '#aaffc3',
-                'Zamboanga Peninsula', '#808000',
-                '#cccccc' // Default color
-            ],
+            'fill-color': matchExpression,
             'fill-opacity': 0.8,
             'fill-outline-color': 'white'
         }
