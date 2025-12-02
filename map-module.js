@@ -1,5 +1,6 @@
+import { regionColors, highlightLegendItem } from './legend-module.js';
 
-function initializeMap() {
+export function initializeMap() {
     // Initialize the map
     const map = new maplibregl.Map({
         container: 'map',
@@ -21,9 +22,6 @@ function initializeMap() {
     });
 
     map.on('load', function () {
-        initializeSidebar();
-        initializeLegend();
-
         // Add a geojson source for the Philippine map
         map.addSource('philippines', {
             type: 'geojson',

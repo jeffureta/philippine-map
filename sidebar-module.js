@@ -1,3 +1,5 @@
+import { getLayerData } from './data-service.js';
+
 // Data for the layers. This could be fetched from a JSON file in the future.
 const layerData = [
     {
@@ -18,7 +20,7 @@ let layerSelectCallback = null;
  * Registers a callback function to be called when a layer is selected.
  * @param {function} callback - The function to call with the selected layer object.
  */
-function onLayerSelect(callback) {
+export function onLayerSelect(callback) {
     layerSelectCallback = callback;
 }
 
@@ -58,13 +60,18 @@ function createLayerElement(layer) {
         });
     } else {
         // Handle click for individual layers (that are not groups)
-        layerItem.addEventListener('click', (event) => {
+        layerItem.addEventListener('click', async (event) => {
             event.stopPropagation(); // Prevent parent handlers from being notified
             console.log(`Layer clicked: ${layer.name}`);
-
-            // Trigger the callback if registered
-            if (layerSelectCallback) {
-                layerSelectCallback(layer);
+            
+            // Fetch and process data when a layer is clicked
+            const data = await getLayerData(layer);
+            if (data && layerSelectCallback) {
+                // Pass both layer info and the fetched data to the callback
+                layerSelectCallback(layer, data);
+            } else if (layerSelectCallback) {
+                // If there's no data, still call the callback but with null data
+                layerSelectCallback(layer, null);
             }
         });
     }
@@ -75,7 +82,7 @@ function createLayerElement(layer) {
 /**
  * Initializes the sidebar by generating the layer content dynamically.
  */
-function initializeSidebar() {
+export function initializeSidebar() {
     const layerContent = document.getElementById('layer-content');
     if (!layerContent) {
         console.error('The "layer-content" element was not found in the DOM.');

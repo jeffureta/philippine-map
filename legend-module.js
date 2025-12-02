@@ -1,4 +1,4 @@
-const regionColors = [
+export const regionColors = [
     { name: 'Autonomous Region in Muslim Mindanao', color: '#e6194b' },
     { name: 'Bicol', color: '#3cb44b' },
     { name: 'Cagayan Valley', color: '#ffe119' },
@@ -18,7 +18,7 @@ const regionColors = [
     { name: 'Zamboanga Peninsula', color: '#808000' }
 ];
 
-function initializeLegend() {
+export function initializeLegend() {
     const legend = document.getElementById('legend');
     if (!legend) return;
 
@@ -36,7 +36,7 @@ function initializeLegend() {
     });
 }
 
-function highlightLegendItem(regionName) {
+export function highlightLegendItem(regionName) {
     // Remove highlight from all legend items first
     document.querySelectorAll('.legend-item.active').forEach(item => {
         item.classList.remove('active');
