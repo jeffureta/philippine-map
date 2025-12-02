@@ -70,6 +70,13 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.legend-item.active {
+    background-color: #e0e0e0;
+    font-weight: bold;
+    border-radius: 3px;
 }
 
 .legend-color {
