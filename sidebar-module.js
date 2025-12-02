@@ -64,6 +64,12 @@ function createLayerElement(layer) {
             event.stopPropagation(); // Prevent parent handlers from being notified
             console.log(`Layer clicked: ${layer.name}`);
             
+            // Add animation class
+            layerItem.classList.add('clicked-animation');
+            setTimeout(() => {
+                layerItem.classList.remove('clicked-animation');
+            }, 300);
+            
             // Fetch and process data when a layer is clicked
             const data = await getLayerData(layer);
             if (data && layerSelectCallback) {

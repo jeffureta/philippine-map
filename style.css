@@ -85,3 +85,20 @@ body {
     margin-right: 8px;
     border: 1px solid #ccc;
 }
+
+/* Animation for clicked sub-layers */
+.clicked-animation {
+    animation: clickedHighlight 0.3s ease-in-out;
+}
+
+@keyframes clickedHighlight {
+    0% {
+        background-color: transparent;
+    }
+    50% {
+        background-color: #d1e7dd; /* A light green/blue to indicate selection */
+    }
+    100% {
+        background-color: transparent;
+    }
+}
