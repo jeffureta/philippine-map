@@ -1,4 +1,5 @@
 import { regionColors, highlightLegendItem } from './legend-module.js';
+import { getLayerData } from './data-service.js';
 
 export function initializeMap() {
     // Initialize the map
@@ -57,18 +58,47 @@ export function initializeMap() {
             map.getCanvas().style.cursor = '';
         });
 
-        map.on('click', 'philippines-layer', function (e) {
+        map.on('click', 'philippines-layer', async function (e) {
             var coordinates = e.lngLat;
-            var description = e.features[0].properties.name;
+            var regionName = e.features[0].properties.name;
+
+            // Map region names if necessary
+            const regionNameMap = {
+                "Davao": "Davao Region"
+            };
+            const dataRegionName = regionNameMap[regionName] || regionName;
 
             // Highlight the legend item
             if (typeof highlightLegendItem === 'function') {
-                highlightLegendItem(description);
+                highlightLegendItem(regionName);
+            }
+
+            // Fetch data for the clicked region
+            const layerData = await getLayerData({
+                name: dataRegionName,
+                dataUrl: 'ph-pi-rate.json',
+                dataKey: 'Region'
+            });
+
+            let popupContent = `<strong>${regionName}</strong>`;
+
+            if (layerData) {
+                const regionPovertyData = layerData.find(item => item.Region === dataRegionName);
+                if (regionPovertyData) {
+                    popupContent += `<br>Poverty Threshold (2.15): ${regionPovertyData.Poverty_Threshold_2_15}`;
+                    popupContent += `<br>Poverty Threshold (3.65): ${regionPovertyData.Poverty_Threshold_3_65}`;
+                    popupContent += `<br>Poverty Threshold (6.85): ${regionPovertyData.Poverty_Threshold_6_85}`;
+                    popupContent += `<br>Year of Estimate: ${regionPovertyData.Year_of_Estimate}`;
+                } else {
+                    popupContent += `<br>No poverty data available for ${dataRegionName}`;
+                }
+            } else {
+                popupContent += `<br>Failed to load poverty data.`;
             }
 
             new maplibregl.Popup()
                 .setLngLat(coordinates)
-                .setHTML('<strong>' + description + '</strong>')
+                .setHTML(popupContent)
                 .addTo(map);
         });
     });
