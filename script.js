@@ -14,28 +14,57 @@ map.on('load', function () {
     });
 
     // Add a layer to display the Philippine regions
+    // Add a layer to display the Philippine regions
     map.addLayer({
         id: 'philippines-layer',
         type: 'fill',
         source: 'philippines',
         paint: {
-            'fill-color': '#007cbf', // Blue color for regions
-            'fill-opacity': 0.5,
-            'fill-outline-color': 'black'
+            'fill-color': [
+                'match',
+                ['get', 'name'],
+                'Autonomous Region in Muslim Mindanao', '#e6194b',
+                'Bicol', '#3cb44b',
+                'Cagayan Valley', '#ffe119',
+                'Calabarzon', '#4363d8',
+                'Caraga', '#f58231',
+                'Central Luzon', '#911eb4',
+                'Central Visayas', '#46f0f0',
+                'Cordillera Administrative Region', '#f032e6',
+                'Davao', '#bcf60c',
+                'Eastern Visayas', '#fabebe',
+                'Ilocos', '#008080',
+                'Mimaropa', '#e6beff',
+                'National Capital Region', '#9a6324',
+                'Northern Mindanao', '#fffac8',
+                'Soccsksargen', '#800000',
+                'Western Visayas', '#aaffc3',
+                'Zamboanga Peninsula', '#808000',
+                '#cccccc' // Default color
+            ],
+            'fill-opacity': 0.8,
+            'fill-outline-color': 'white'
         }
     });
 
-    // Add interaction: change color on hover
-    map.on('mousemove', 'philippines-layer', function (e) {
-        if (e.features.length > 0) {
-            map.getCanvas().style.cursor = 'pointer';
-            map.setPaintProperty('philippines-layer', 'fill-color', '#005c99'); // Darker blue on hover
-        }
+    // Change the cursor to a pointer when the mouse is over the places layer.
+    map.on('mouseenter', 'philippines-layer', function () {
+        map.getCanvas().style.cursor = 'pointer';
     });
 
+    // Change it back to a pointer when it leaves.
     map.on('mouseleave', 'philippines-layer', function () {
         map.getCanvas().style.cursor = '';
-        map.setPaintProperty('philippines-layer', 'fill-color', '#007cbf'); // Original color
+    });
+
+    map.on('click', 'philippines-layer', function (e) {
+        var coordinates = e.lngLat;
+        var description = e.features[0].properties.name;
+
+        new maplibregl.Popup()
+            .setLngLat(coordinates)
+            .setHTML('<strong>' + description + '</strong>')
+            .addTo(map);
     });
 });
 
