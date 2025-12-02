@@ -4,13 +4,23 @@ const layerData = [
         id: 'poverty-incidence-data',
         name: 'Poverty Incidence Data (2021)',
         subLayers: [
-            { id: 'poverty-threshold-215', name: 'Poverty Threshold $2.15' },
-            { id: 'poverty-threshold-365', name: 'Poverty Threshold $3.65' },
-            { id: 'poverty-threshold-685', name: 'Poverty Threshold $6.85' }
+            { id: 'poverty-threshold-215', name: 'Poverty Threshold $2.15', dataUrl: 'ph-pi-rate.json', dataKey: 'Poverty_Threshold_2_15' },
+            { id: 'poverty-threshold-365', name: 'Poverty Threshold $3.65', dataUrl: 'ph-pi-rate.json', dataKey: 'Poverty_Threshold_3_65' },
+            { id: 'poverty-threshold-685', name: 'Poverty Threshold $6.85', dataUrl: 'ph-pi-rate.json', dataKey: 'Poverty_Threshold_6_85' }
         ]
     }
     // Other main layers can be added here
 ];
+
+let layerSelectCallback = null;
+
+/**
+ * Registers a callback function to be called when a layer is selected.
+ * @param {function} callback - The function to call with the selected layer object.
+ */
+function onLayerSelect(callback) {
+    layerSelectCallback = callback;
+}
 
 /**
  * Creates and returns a DOM element for a single layer or a layer group.
@@ -51,7 +61,11 @@ function createLayerElement(layer) {
         layerItem.addEventListener('click', (event) => {
             event.stopPropagation(); // Prevent parent handlers from being notified
             console.log(`Layer clicked: ${layer.name}`);
-            // Add specific logic for this layer here
+
+            // Trigger the callback if registered
+            if (layerSelectCallback) {
+                layerSelectCallback(layer);
+            }
         });
     }
 
