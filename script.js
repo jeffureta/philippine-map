@@ -4,7 +4,19 @@
 // Initialize the map
 const map = new maplibregl.Map({
     container: 'map',
-    style: 'https://tiles.basemaps.cartocdn.com/gl/voyager-gl-style/style.json', // Example style
+    style: {
+        'version': 8,
+        'sources': {},
+        'layers': [
+            {
+                'id': 'background',
+                'type': 'background',
+                'paint': {
+                    'background-color': 'white'
+                }
+            }
+        ]
+    },
     center: [122.5, 12.5], // Center of the Philippines
     zoom: 5
 });
