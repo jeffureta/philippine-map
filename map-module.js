@@ -11,7 +11,7 @@ function initializeMap() {
                     'id': 'background',
                     'type': 'background',
                     'paint': {
-                        'background-color': 'white'
+                        'background-color': '#333333'
                     }
                 }
             ]
