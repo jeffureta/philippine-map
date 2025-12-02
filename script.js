@@ -10,6 +10,7 @@ const map = new maplibregl.Map({
 });
 
 map.on('load', function () {
+    initializeSidebar();
     // Add a geojson source for the Philippine map
     map.addSource('philippines', {
         type: 'geojson',
