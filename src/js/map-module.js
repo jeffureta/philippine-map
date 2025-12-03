@@ -26,7 +26,7 @@ export function initializeMap() {
         // Add a geojson source for the Philippine map
         map.addSource('philippines', {
             type: 'geojson',
-            data: 'ph.json' // Your GeoJSON file
+            data: 'src/data/ph.json' // Your GeoJSON file
         });
 
         // Generate match expression for map style from regionColors (defined in legend-module.js)
@@ -76,7 +76,7 @@ export function initializeMap() {
             // Fetch data for the clicked region
             const layerData = await getLayerData({
                 name: dataRegionName,
-                dataUrl: 'ph-pi-rate.json',
+                dataUrl: 'src/data/ph-pi-rate.json',
                 dataKey: 'Region'
             });
 

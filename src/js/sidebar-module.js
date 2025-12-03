@@ -6,9 +6,9 @@ const layerData = [
         id: 'poverty-incidence-data',
         name: 'Poverty Incidence Data (2021)',
         subLayers: [
-            { id: 'poverty-threshold-215', name: 'Poverty Threshold $2.15', dataUrl: 'ph-pi-rate.json', dataKey: 'Poverty_Threshold_2_15' },
-            { id: 'poverty-threshold-365', name: 'Poverty Threshold $3.65', dataUrl: 'ph-pi-rate.json', dataKey: 'Poverty_Threshold_3_65' },
-            { id: 'poverty-threshold-685', name: 'Poverty Threshold $6.85', dataUrl: 'ph-pi-rate.json', dataKey: 'Poverty_Threshold_6_85' }
+            { id: 'poverty-threshold-215', name: 'Poverty Threshold $2.15', dataUrl: 'src/data/ph-pi-rate.json', dataKey: 'Poverty_Threshold_2_15' },
+            { id: 'poverty-threshold-365', name: 'Poverty Threshold $3.65', dataUrl: 'src/data/ph-pi-rate.json', dataKey: 'Poverty_Threshold_3_65' },
+            { id: 'poverty-threshold-685', name: 'Poverty Threshold $6.85', dataUrl: 'src/data/ph-pi-rate.json', dataKey: 'Poverty_Threshold_6_85' }
         ]
     }
     // Other main layers can be added here
@@ -63,13 +63,13 @@ function createLayerElement(layer) {
         layerItem.addEventListener('click', async (event) => {
             event.stopPropagation(); // Prevent parent handlers from being notified
             console.log(`Layer clicked: ${layer.name}`);
-            
+
             // Add animation class
             layerItem.classList.add('clicked-animation');
             setTimeout(() => {
                 layerItem.classList.remove('clicked-animation');
             }, 300);
-            
+
             // Fetch and process data when a layer is clicked
             const data = await getLayerData(layer);
             if (data && layerSelectCallback) {
