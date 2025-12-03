@@ -1,6 +1,6 @@
-import { initializeSidebar, onLayerSelect } from './sidebar-module.js';
-import { initializeMap } from './map-module.js';
-import { initializeLegend } from './legend-module.js';
+import { initializeSidebar, onLayerSelect } from '../../sidebar-module.js';
+import { initializeMap } from '../../map-module.js';
+import { initializeLegend } from '../../legend-module.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeSidebar();
