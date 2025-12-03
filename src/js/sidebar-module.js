@@ -3,6 +3,10 @@ import { getLayerData } from './data-service.js';
 // Data for the layers. This could be fetched from a JSON file in the future.
 const layerData = [
     {
+        id: 'regions-data',
+        name: 'Regions'
+    },
+    {
         id: 'poverty-incidence-data',
         name: 'Poverty Incidence Data (2021)',
         subLayers: [
@@ -103,4 +107,10 @@ export function initializeSidebar() {
         const layerElement = createLayerElement(layer);
         layerContent.appendChild(layerElement);
     });
+
+    // Select the first layer (Regions) by default
+    if (layerData.length > 0 && layerSelectCallback) {
+        const defaultLayer = layerData[0];
+        layerSelectCallback(defaultLayer, null);
+    }
 }
