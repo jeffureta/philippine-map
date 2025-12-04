@@ -1,0 +1,235 @@
+[
+  {
+    "region_name": "National Capital Region",
+    "other_name": "NCR",
+    "PSGC": "13",
+    "LGUs": [
+      "Caloocan City",
+      "Las Piñas City",
+      "Makati City",
+      "Malabon City",
+      "Mandaluyong City",
+      "Manila",
+      "Marikina City",
+      "Muntinlupa City",
+      "Navotas City",
+      "Parañaque City",
+      "Pasay City",
+      "Pasig City",
+      "Quezon City",
+      "San Juan City",
+      "Taguig City",
+      "Valenzuela City",
+      "Municipality of Pateros"
+    ]
+  },
+  {
+    "region_name": "Cordillera Administrative Region",
+    "other_name": "CAR",
+    "PSGC": "14",
+    "LGUs": [
+      "Abra",
+      "Apayao",
+      "Benguet",
+      "Ifugao",
+      "Kalinga",
+      "Mountain Province"
+    ]
+  },
+  {
+    "region_name": "Ilocos Region",
+    "other_name": "Region I",
+    "PSGC": "1",
+    "LGUs": [
+      "Ilocos Norte",
+      "Ilocos Sur",
+      "La Union",
+      "Pangasinan"
+    ]
+  },
+  {
+    "region_name": "Cagayan Valley",
+    "other_name": "Region II",
+    "PSGC": "2",
+    "LGUs": [
+      "Batanes",
+      "Cagayan",
+      "Isabela",
+      "Nueva Vizcaya",
+      "Quirino"
+    ]
+  },
+  {
+    "region_name": "Central Luzon",
+    "other_name": "Region III",
+    "PSGC": "3",
+    "LGUs": [
+      "Aurora",
+      "Bataan",
+      "Bulacan",
+      "Nueva Ecija",
+      "Pampanga",
+      "Tarlac",
+      "Angeles City",
+      "Olongapo City",
+      "Zambales",
+      "Olongapo City"
+    ]
+  },
+  {
+    "region_name": "CALABARZON",
+    "other_name": "Region IV-A",
+    "PSGC": "4",
+    "LGUs": [
+      "Batangas",
+      "Cavite",
+      "Laguna",
+      "Quezon",
+      "Rizal"
+    ]
+  },
+  {
+    "region_name": "MIMAROPA",
+    "other_name": "Region IV-B",
+    "PSGC": "17",
+    "LGUs": [
+      "Occidental Mindoro",
+      "Oriental Mindoro",
+      "Marinduque",
+      "Romblon",
+      "Palawan"
+    ]
+  },
+  {
+    "region_name": "Bicol Region",
+    "other_name": "Region V",
+    "PSGC": "5",
+    "LGUs": [
+      "Albay",
+      "Camarines Norte",
+      "Camarines Sur",
+      "Catanduanes",
+      "Masbate",
+      "Sorsogon"
+    ]
+  },
+  {
+    "region_name": "Western Visayas",
+    "other_name": "Region VI",
+    "PSGC": "6",
+    "LGUs": [
+      "Aklan",
+      "Antique",
+      "Capiz",
+      "Guimaras",
+      "Iloilo"
+    ]
+  },
+  {
+    "region_name": "Negros Island Region",
+    "other_name": "NIR",
+    "PSGC": "18",
+    "LGUs": [
+      "Negros Occidental",
+      "Negros Oriental",
+      "Siquijor"
+    ]
+  },
+  {
+    "region_name": "Central Visayas",
+    "other_name": "Region VII",
+    "PSGC": "7",
+    "LGUs": [
+      "Bohol",
+      "Cebu",
+      "Cebu City",
+      "Lapu-Lapu City",
+      "Mandaue City"
+    ]
+  },
+  {
+    "region_name": "Eastern Visayas",
+    "other_name": "Region VIII",
+    "PSGC": "8",
+    "LGUs": [
+      "Biliran",
+      "Eastern Samar",
+      "Leyte",
+      "Northern Samar",
+      "Samar",
+      "Southern Leyte"
+    ]
+  },
+  {
+    "region_name": "Zamboanga Peninsula",
+    "other_name": "Region IX",
+    "PSGC": "9",
+    "LGUs": [
+      "Sulu",
+      "Zamboanga del Norte",
+      "Zamboanga del Sur",
+      "Zamboanga Sibugay"
+    ]
+  },
+  {
+    "region_name": "Northern Mindanao",
+    "other_name": "Region X",
+    "PSGC": "10",
+    "LGUs": [
+      "Bukidnon",
+      "Camiguin",
+      "Lanao del Norte",
+      "Misamis Occidental",
+      "Misamis Oriental"
+    ]
+  },
+  {
+    "region_name": "Davao Region",
+    "other_name": "Region XI",
+    "PSGC": "11",
+    "LGUs": [
+      "Davao de Oro",
+      "Davao del Norte",
+      "Davao del Sur",
+      "Davao Occidental",
+      "Davao Oriental"
+    ]
+  },
+  {
+    "region_name": "SOCCSKSARGEN",
+    "other_name": "Region XII",
+    "PSGC": "12",
+    "LGUs": [
+      "Cotabato",
+      "Sarangani",
+      "South Cotabato",
+      "Sultan Kudarat",
+      "Surigao del Norte",
+      "General Santos City"
+    ]
+  },
+  {
+    "region_name": "Caraga",
+    "other_name": "Region XIII",
+    "PSGC": "16",
+    "LGUs": [
+      "Agusan del Norte",
+      "Agusan del Sur",
+      "Dinagat Islands",
+      "Surigao del Norte",
+      "Surigao del Sur",
+      "Butuan City"
+    ]
+  },
+  {
+    "region_name": "Bangsamoro",
+    "other_name": "BARMM",
+    "PSGC": "19",
+    "LGUs": [
+      "Basilan",
+      "Lanao del Sur",
+      "Maguindanao del Norte",
+      "Tawi-Tawi"
+    ]
+  }
+]
