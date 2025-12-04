@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <title>Philippine Map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
     <link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
-    <style>
-        body { margin: 0; padding: 0; }
-        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-    </style>
+    <link href='src/styles/style.css' rel='stylesheet' />
 </head>
+
 <body>
     <div id='map'></div>
     <script>
@@ -49,9 +48,10 @@
             zoom: 5 // Initial zoom level
         });
 
-        map.on('load', function() {
+        map.on('load', function () {
             // You can add more layers or interactions here if needed
         });
     </script>
 </body>
+
 </html>
