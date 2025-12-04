@@ -36,7 +36,7 @@ global.fetch = (url) => {
 const fs = require('fs');
 const path = require('path');
 try {
-    const dataModuleCode = fs.readFileSync(path.join(__dirname, 'data-module.js'), 'utf8');
+    const dataModuleCode = fs.readFileSync(path.join(__dirname, '../js/data-module.js'), 'utf8');
     const modifiedCode = dataModuleCode.replace('const DataHandler', 'global.DataHandler');
     eval(modifiedCode); // This defines `DataHandler` on the global scope
     console.log('DataHandler module loaded successfully.');
