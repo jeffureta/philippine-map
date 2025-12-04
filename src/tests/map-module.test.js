@@ -56,14 +56,14 @@ const getLayerData = jest.fn();
 // in this simple Node test runner. We'll read the file and strip the imports.
 let initializeMap;
 try {
-    let mapModuleCode = fs.readFileSync(path.join(__dirname, 'map-module.js'), 'utf8');
-    
+    let mapModuleCode = fs.readFileSync(path.join(__dirname, '../js/map-module.js'), 'utf8');
+
     // Remove import lines
     mapModuleCode = mapModuleCode.replace(/import .* from '.*';/g, '');
-    
+
     // Expose the function for testing
     mapModuleCode = mapModuleCode.replace('export function initializeMap', 'global.initializeMap = function');
-    
+
     // Evaluate the modified code
     eval(mapModuleCode);
     initializeMap = global.initializeMap;
@@ -132,7 +132,7 @@ test('on map load, should add source and layer', () => {
 
     if (mockMapInstance.addSource.mock.calls.length !== 1) throw new Error('addSource should be called once');
     if (mockMapInstance.addSource.mock.calls[0][0] !== 'philippines') throw new Error('should add "philippines" source');
-    
+
     if (mockMapInstance.addLayer.mock.calls.length !== 1) throw new Error('addLayer should be called once');
     if (mockMapInstance.addLayer.mock.calls[0][0].id !== 'philippines-layer') throw new Error('should add "philippines-layer"');
 });
@@ -143,12 +143,12 @@ test('on layer click, should call dependencies and show popup', async () => {
     loadCallback();
 
     const clickCallback = mockMapInstance.on.mock.calls.find(call => call[0] === 'click' && call[1] === 'philippines-layer')[2];
-    
+
     const mockEvent = {
         lngLat: { lng: 123, lat: 14 },
         features: [{ properties: { name: 'Test Region' } }],
     };
-    
+
     const mockPovertyData = {
         Region: 'Test Region',
         Poverty_Threshold_2_15: '100',
@@ -166,7 +166,7 @@ test('on layer click, should call dependencies and show popup', async () => {
     if (highlightLegendItem.mock.calls[0][0] !== 'Test Region') throw new Error('highlightLegendItem called with wrong region');
 
     if (getLayerData.mock.calls.length !== 1) throw new Error('getLayerData should be called');
-    
+
     if (global.maplibregl.Popup.mock.calls.length !== 1) throw new Error('maplibregl.Popup should be called');
     if (mockPopupInstance.setLngLat.mock.calls[0][0] !== mockEvent.lngLat) throw new Error('Popup LngLat not set correctly');
     if (!mockPopupInstance.setHTML.mock.calls[0][0].includes('Poverty Threshold (2.15): 100')) throw new Error('Popup HTML content is incorrect');

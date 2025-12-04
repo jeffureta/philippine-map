@@ -37,7 +37,7 @@ const fs = require('fs');
 const path = require('path');
 let getLayerData; // Declare getLayerData in a scope accessible by tests
 try {
-    const dataServiceCode = fs.readFileSync(path.join(__dirname, 'data-service.js'), 'utf8');
+    const dataServiceCode = fs.readFileSync(path.join(__dirname, '../js/data-service.js'), 'utf8');
     // To make the exported function accessible, we can use a trick:
     // Replace 'export async function getLayerData' with 'global.getLayerData = async function'
     // or simply eval the code and access it from the global scope if it's the only export.

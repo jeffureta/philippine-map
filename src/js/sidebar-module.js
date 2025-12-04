@@ -4,7 +4,8 @@ import { getLayerData } from './data-service.js';
 const layerData = [
     {
         id: 'regions-data',
-        name: 'Regions'
+        name: 'Regions',
+        dataUrl: 'src/data/ph-regions.json'
     },
     {
         id: 'poverty-incidence-data',
