@@ -5,7 +5,7 @@ export const map = new maplibregl.Map({
         sources: {
             'philippines': {
                 type: 'geojson',
-                data: 'src/data/ph.json' // Path to your GeoJSON file
+                data: 'src/data/ph_updated_nir.json' // Path to your GeoJSON file
             }
         },
         layers: [
