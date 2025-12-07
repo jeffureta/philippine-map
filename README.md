@@ -191,7 +191,48 @@ This file imports all other modules and makes them work together.
 
 This design keeps each part of your application separate and focused on a single job, which will make it much easier to manage and expand in the future.
 
-### **6. Interaction Example: Clicking a Region**
+### **6. Testing Your JavaScript**
+
+To ensure the reliability and correctness of your JavaScript logic without introducing external dependencies, a lightweight, vanilla JavaScript testing setup has been implemented. This allows you to write and run tests directly in your browser.
+
+**Components:**
+
+*   **`tests.html`**: Located in the project root, this HTML file serves as your test runner. Opening it in a web browser will execute all included test files and display the results.
+*   **`src/tests/test-helpers.js`**: This file provides simple assertion utilities (`it`, `assert`, `assertEqual`) to structure your tests.
+*   **Test Files (e.g., `src/tests/filter.test.js`)**: These files contain your actual test cases, utilizing the `it()` function to define individual tests and the assertion functions to verify expected behavior.
+
+**How to Run Tests:**
+
+1.  Open `tests.html` in your web browser.
+2.  The results (pass/fail) will be displayed directly on the page.
+
+**How to Write New Tests:**
+
+1.  Create a new test file in `src/tests/` (e.g., `src/tests/map.test.js`).
+2.  Use the `it()` function to define a test block, providing a description and a callback function containing your test logic:
+
+    ```javascript
+    // Example: src/tests/map.test.js
+    it('should correctly initialize the map with default settings', () => {
+      // Assume a map initialization function exists in map.js
+      // const mapInstance = initializeMap();
+      // assertEqual(mapInstance.getZoom(), 10);
+      // assert(mapInstance.isLoaded());
+      assert(true); // Placeholder assertion
+    });
+    ```
+
+3.  Include your new test file in `tests.html` by adding a `<script>` tag:
+
+    ```html
+    <!-- In tests.html -->
+    <script src="src/tests/filter.test.js"></script>
+    <script src="src/tests/map.test.js"></script> <!-- Add this line -->
+    ```
+
+This setup provides a straightforward way to maintain code quality and catch regressions as your application evolves.
+
+### **7. Interaction Example: Clicking a Region**
 
 Here’s how the modules would work together when a user clicks on a region to see more information:
 
