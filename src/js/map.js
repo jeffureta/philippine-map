@@ -32,3 +32,28 @@ export const map = new maplibregl.Map({
     center: [121.7740, 12.8797], // Approximate center of the Philippines [lng, lat]
     zoom: 5 // Initial zoom level
 });
+
+map.on('click', 'philippines-fill', (e) => {
+    const regionId = e.features[0].properties.ID; // Or however you get the ID
+    const regionName = e.features[0].properties.NAME_1;
+
+    // Dispatch custom event
+    const event = new CustomEvent('regionClick', {
+        detail: {
+            regionId,
+            regionName,
+            properties: e.features[0].properties
+        }
+    });
+    map.getCanvas().dispatchEvent(event);
+});
+
+// Change the cursor to a pointer when the mouse is over the states layer.
+map.on('mouseenter', 'philippines-fill', () => {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'philippines-fill', () => {
+    map.getCanvas().style.cursor = '';
+});

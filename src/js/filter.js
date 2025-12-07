@@ -6,7 +6,8 @@ export function initFilter(map) {
 
     const layers = [
         { id: 'regions', name: '18 Administrative Regions', checked: true },
-        // { id: 'provinces', name: 'Provinces', checked: false }
+        // { id: 'provinces', name: 'Provinces', checked: false },
+        { id: 'pi-rate', name: 'Poverty Incidence Rate', checked: false },
     ];
 
     const form = document.createElement('form');
