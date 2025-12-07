@@ -13,6 +13,8 @@ map.on('load', function () {
         const { layerId } = e.detail;
         if (layerId === 'regions') {
             setRegionColor(map, 'philippines-fill', regionColorExpression);
+        } else if (layerId === 'no-filter') {
+            setRegionColor(map, 'philippines-fill', '#6f9c76');
         } else {
             // Reset to default green if another layer is selected (optional but good practice)
             // The prompt didn't strictly require this but it makes sense.

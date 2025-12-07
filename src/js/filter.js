@@ -5,6 +5,7 @@ export function initFilter(map) {
     filterPanel.innerHTML = '<h5>Map Data</h5>';
 
     const layers = [
+        { id: 'no-filter', name: 'No Filter', checked: true },
         { id: 'regions', name: '18 Administrative Regions', checked: false },
         // { id: 'provinces', name: 'Provinces', checked: false },
         {
