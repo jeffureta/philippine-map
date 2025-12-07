@@ -151,6 +151,14 @@ This file imports all other modules and makes them work together.
     4.  Listen for events (e.g., a filter change from `filter.js` or a region click from `map.js`).
     5.  When an event occurs, update the map's appearance and show/hide/update the `infoPanel`.
 
+**`color.js` (The Color Palette)**
+
+This module provides utilities for managing and applying colors to map regions.
+
+*   **Responsibility:**
+    1.  Define a function to dynamically set the color of a specific map region.
+    2.  Export a Mapbox GL JS style expression for assigning default colors to regions based on their names.
+
 **`map.js` (The Map)**
 
 *   **Responsibility:**
