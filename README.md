@@ -277,3 +277,11 @@ Here’s how the modules would work together when a user clicks on a region to s
     *   The `show()` function in `infoPanel.js` receives the HTML content and updates the panel, making it visible.
 
 This event-based approach ensures that your `map.js` doesn't need to know about the info panel, and the `infoPanel.js` doesn't need to know about the map. `script.js` acts as the central coordinator.
+
+### **8. Data Consistency Tests**
+
+To ensure data integrity across different data sources, specific tests are in place.
+
+**Region Name Consistency (`src/tests/regionNames.test.js`)**
+
+This test verifies that the administrative region names are consistent between `ph_updated_nir.json` (which provides geographic data) and `ph-pi-rate.json` (which contains poverty rate data). It confirms that every region listed in one file exists in the other, preventing mismatches when data from both sources is combined.
