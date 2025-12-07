@@ -1,12 +1,20 @@
 body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
     margin: 0;
     font-family: sans-serif;
 }
 
+main {
+    flex: 1 0 auto;
+    display: flex;
+}
+
 #app {
+    flex-grow: 1;
     display: flex;
     position: relative;
-    height: 100vh;
 }
 
 #map-container {
@@ -18,22 +26,11 @@ body {
     height: 100%;
 }
 
+/* Panels are now inside the Materialize sidenav */
 .panel {
-    position: absolute;
-    top: 20px;
-    background: white;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    z-index: 1;
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
-#filter-panel {
-    left: 20px;
+    padding: 20px;
 }
 
 #info-panel {
-    right: 20px;
+    display: none;
 }
