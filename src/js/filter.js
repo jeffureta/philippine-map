@@ -5,7 +5,7 @@ export function initFilter(map) {
     filterPanel.innerHTML = '<h5>Map Data</h5>';
 
     const layers = [
-        { id: 'regions', name: '18 Administrative Regions', checked: true },
+        { id: 'regions', name: '18 Administrative Regions', checked: false },
         // { id: 'provinces', name: 'Provinces', checked: false },
         {
             id: 'pi-rate',
@@ -79,6 +79,14 @@ export function initFilter(map) {
         if (target.name === 'map-layer') {
             const selectedLayerId = target.id;
             console.log(`Selected layer: ${selectedLayerId}`);
+
+            // Dispatch custom event for script.js to handle
+            const filterEvent = new CustomEvent('filterChange', {
+                detail: {
+                    layerId: selectedLayerId
+                }
+            });
+            map.getCanvas().dispatchEvent(filterEvent);
 
             // Show/Hide sub-layers
             layers.forEach(layer => {
