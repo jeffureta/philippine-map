@@ -1,4 +1,5 @@
-import { map, setRegionColor, regionColorExpression } from './map.js';
+import { map } from './map.js';
+import { setRegionColor, regionColorExpression } from './color.js';
 import { initFilter } from './filter.js';
 import { show as showInfoPanel } from './infoPanel.js';
 
@@ -11,7 +12,7 @@ map.on('load', function () {
     mapCanvas.addEventListener('filterChange', (e) => {
         const { layerId } = e.detail;
         if (layerId === 'regions') {
-            setRegionColor('philippines-fill', regionColorExpression);
+            setRegionColor(map, 'philippines-fill', regionColorExpression);
         } else {
             // Reset to default green if another layer is selected (optional but good practice)
             // The prompt didn't strictly require this but it makes sense.
