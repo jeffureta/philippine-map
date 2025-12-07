@@ -42,7 +42,55 @@ Your HTML body can be structured with simple `div` containers for each main comp
 </body>
 ```
 
-### **3. CSS (`src/styles/style.css`)**
+### **3. Responsive Design with Materialize CSS**
+
+To make the application mobile-ready and provide ready-made UI components, Materialize CSS has been integrated. This framework offers a responsive grid system, pre-designed elements like navigation bars and side panels, and is free and easy to use via CDN.
+
+**Integration Details:**
+
+*   **CDN Links:** Materialize CSS, JavaScript, and Material Icons have been added to the `<head>` and `<body>` of `index.html`.
+*   **Header (Navbar):** A `<header>` element containing a Materialize `nav` component was introduced. This serves as the application's header, displaying the title and a "hamburger" icon (`sidenav-trigger`) for mobile navigation.
+*   **Side Panel (Sidenav):** A Materialize `ul` with the class `sidenav` and `id="slide-out"` was created. Your existing `#filter-panel` and `#info-panel` elements were moved inside this sidenav. On mobile, these panels will now slide out from the side when the menu icon is tapped.
+*   **Main Content:** The `#map-container` is now wrapped in a `<main>` tag for better semantic structure.
+*   **JavaScript Initialization:** A small JavaScript snippet was added at the end of `<body>` to initialize the Materialize Sidenav component, ensuring its interactive functionality.
+
+**Updated HTML Structure (Conceptual):**
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Materialize CSS, Icons, and other links -->
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo center">Philippine Map</a>
+                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            </div>
+        </nav>
+    </header>
+
+    <ul id="slide-out" class="sidenav">
+        <li><div id="filter-panel" class="panel">...</div></li>
+        <li><div id="info-panel" class="panel">...</div></li>
+    </ul>
+
+    <main>
+        <div id="app">
+            <div id="map-container">
+                <div id="map"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MapLibre JS, Materialize JS, script.js, and Sidenav initialization script -->
+</body>
+</html>
+```
+
+### **4. CSS (`src/styles/style.css`)**
 
 Use a modern layout like CSS Grid or Flexbox to position your components. Here’s a simple example using Flexbox to place the panels over the map.
 
@@ -88,7 +136,7 @@ body {
 }
 ```
 
-### **4. JavaScript Modules (`src/js/`)**
+### **5. JavaScript Modules (`src/js/`)**
 
 This is how the JavaScript modules would work together:
 
@@ -143,7 +191,7 @@ This file imports all other modules and makes them work together.
 
 This design keeps each part of your application separate and focused on a single job, which will make it much easier to manage and expand in the future.
 
-### **5. Interaction Example: Clicking a Region**
+### **6. Interaction Example: Clicking a Region**
 
 Here’s how the modules would work together when a user clicks on a region to see more information:
 
