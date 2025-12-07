@@ -7,7 +7,7 @@
         "Year_of_Estimate": 2021
     },
     {
-        "region_name": "Ilocos Region",
+        "region_name": "Ilocos",
         "Poverty_Threshold_2_15": "2.07%",
         "Poverty_Threshold_3_65": "13.87%",
         "Poverty_Threshold_6_85": "55.39%",
@@ -28,7 +28,7 @@
         "Year_of_Estimate": 2021
     },
     {
-        "region_name": "CALABARZON",
+        "region_name": "Calabarzon",
         "Poverty_Threshold_2_15": "1.05%",
         "Poverty_Threshold_3_65": "10.05%",
         "Poverty_Threshold_6_85": "44.41%",
