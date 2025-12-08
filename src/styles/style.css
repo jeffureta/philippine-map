@@ -10,10 +10,13 @@
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
-    pointer-events: none; /* Allow clicks to pass through to the map */
+    pointer-events: none;
+    /* Allow clicks to pass through to the map */
     white-space: nowrap;
-    transform: translate(-50%, -100%); /* Adjust to center above the click point */
-    z-index: 1000; /* Ensure it's above the map */
+    transform: translate(-50%, -100%);
+    /* Adjust to center above the click point */
+    z-index: 1000;
+    /* Ensure it's above the map */
 }
 
 body {
@@ -49,12 +52,65 @@ main {
     padding: 20px;
 }
 
+/* IOS Bubble Style for Info Panel */
 #info-panel {
     position: absolute;
-    width: 250px;
-    background: white;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Black with 20% transparency (0.8 opacity) */
+    color: white;
+    width: max-content;
+    max-width: 300px;
+    border-radius: 12px;
+    padding: 10px 15px;
     z-index: 1000;
-    display: none; /* Hidden by default */
-    transform: translate(-50%, -110%);
+    display: none;
+    /* Hidden by default */
+    transform: translate(-50%, -100%);
+    /* Center horizontally and sit above the click */
     pointer-events: none;
+    font-size: 14px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: -15px;
+    /* Spacing from cursor/click point */
+}
+
+/* Arrow for the bubble */
+#info-panel::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    /* Position below the bubble */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid rgba(0, 0, 0, 0.8);
+    /* Match background color */
+}
+
+#info-panel strong {
+    font-weight: 600;
+}
+
+#info-panel span {
+    font-weight: 400;
+}
+
+/* Tweak inner spacing if needed, though simple structure helps */
+#info-panel .card-content {
+    padding: 0;
+    /* Remove default card padding if class remains, or just ensured */
+}
+
+/* Override potential material defaults */
+#info-panel p {
+    margin: 2px 0;
+    line-height: 1.4;
+}
+
+#info-panel .card-title {
+    display: none;
+    /* Hide 'Region Info' title for cleaner ios look, or style it smaller */
 }
