@@ -89,6 +89,9 @@ export function initFilter(map) {
             });
             map.getCanvas().dispatchEvent(filterEvent);
 
+            // Add 'interactive-map-mode' class to #app when a filter is selected
+            document.getElementById('app').classList.add('interactive-map-mode');
+
             // Show/Hide sub-layers
             layers.forEach(layer => {
                 const container = document.getElementById(`sub-layers-${layer.id}`);

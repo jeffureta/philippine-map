@@ -1,3 +1,21 @@
+/* Interactive map mode styles */
+.interactive-map-mode #map-container .maplibregl-canvas {
+    cursor: pointer !important;
+}
+
+/* Region text box styles */
+.region-text-box {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    pointer-events: none; /* Allow clicks to pass through to the map */
+    white-space: nowrap;
+    transform: translate(-50%, -100%); /* Adjust to center above the click point */
+    z-index: 1000; /* Ensure it's above the map */
+}
+
 body {
     display: flex;
     min-height: 100vh;

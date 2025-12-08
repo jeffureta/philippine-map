@@ -42,7 +42,8 @@ map.on('click', 'philippines-fill', (e) => {
         detail: {
             regionId,
             regionName,
-            properties: e.features[0].properties
+            properties: e.features[0].properties,
+            point: e.point // Pass the pixel coordinates of the click
         }
     });
     map.getCanvas().dispatchEvent(event);
