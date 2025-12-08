@@ -55,7 +55,6 @@ export function initFilter(map) {
                 subInput.type = 'radio';
                 subInput.id = subLayer.id;
                 subInput.value = subLayer.value;
-                subInput.checked = index === 0; // Select first by default
 
                 const subSpan = document.createElement('span');
                 subSpan.textContent = subLayer.name;
