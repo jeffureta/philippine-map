@@ -50,5 +50,11 @@ main {
 }
 
 #info-panel {
-    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 300px;
+    background: white;
+    z-index: 1000;
+    display: none; /* Hidden by default */
 }
