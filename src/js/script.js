@@ -1,7 +1,6 @@
 import { map } from './map.js';
 import { setRegionColor, regionColorExpression } from './color.js';
 import { initFilter } from './filter.js';
-import { show as showInfoPanel } from './infoPanel.js';
 
 map.on('load', function () {
     initFilter(map);
@@ -41,6 +40,6 @@ map.on('load', function () {
             content += '</ul>';
         }
 
-        showInfoPanel(content);
+
     });
 });
