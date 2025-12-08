@@ -67,7 +67,6 @@ main {
     /* Hidden by default */
     transform: translate(-50%, -100%);
     /* Center horizontally and sit above the click */
-    pointer-events: none;
     font-size: 14px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-top: -15px;

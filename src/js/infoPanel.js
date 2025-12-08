@@ -1,5 +1,4 @@
 const infoPanel = document.getElementById('info-panel');
-const closeButton = document.querySelector('#info-panel .close-button');
 
 export function updateInfoPanel(data, regionDetail) {
     const regionName = regionDetail.regionName;
@@ -34,7 +33,9 @@ export function closeInfoPanel() {
     }
 }
 
-// Add event listener to the close button
-if (closeButton) {
-    closeButton.addEventListener('click', closeInfoPanel);
+export function initInfoPanel() {
+    const closeButton = document.querySelector('#info-panel .close-button');
+    if (closeButton) {
+        closeButton.addEventListener('click', closeInfoPanel);
+    }
 }

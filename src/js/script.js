@@ -1,9 +1,10 @@
 import { map } from './map.js';
 import { setRegionColor, regionColorExpression } from './color.js';
 import { initFilter } from './filter.js';
-import { updateInfoPanel } from './infoPanel.js';
+import { updateInfoPanel, initInfoPanel } from './infoPanel.js';
 
 map.on('load', async function () {
+    initInfoPanel();
     initFilter(map);
 
     const mapCanvas = map.getCanvas();
