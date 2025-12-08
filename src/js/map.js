@@ -34,8 +34,8 @@ export const map = new maplibregl.Map({
 });
 
 map.on('click', 'philippines-fill', (e) => {
-    const regionId = e.features[0].properties.ID; // Or however you get the ID
-    const regionName = e.features[0].properties.NAME_1;
+    const regionId = e.features[0].properties.id;
+    const regionName = e.features[0].properties.name;
 
     // Dispatch custom event
     const event = new CustomEvent('regionClick', {
