@@ -74,6 +74,20 @@ main {
     /* Spacing from cursor/click point */
 }
 
+/* Close button for info panel */
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0 5px;
+    z-index: 1001; /* Ensure it's above the info panel content */
+}
+
 /* Arrow for the bubble */
 #info-panel::after {
     content: '';

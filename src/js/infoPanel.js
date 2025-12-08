@@ -1,3 +1,6 @@
+const infoPanel = document.getElementById('info-panel');
+const closeButton = document.querySelector('#info-panel .close-button');
+
 export function updateInfoPanel(data, regionDetail) {
     const regionName = regionDetail.regionName;
     const regionId = regionDetail.regionId;
@@ -6,7 +9,6 @@ export function updateInfoPanel(data, regionDetail) {
     // Select elements
     const regionNameEl = document.getElementById('region-name');
     const regionIdEl = document.getElementById('region-id');
-    const infoPanel = document.getElementById('info-panel');
 
     // Update DOM
     if (regionNameEl) regionNameEl.textContent = regionName || 'Unknown Region';
@@ -24,4 +26,15 @@ export function updateInfoPanel(data, regionDetail) {
         console.log('Info Panel updated. Data features count:', data.features.length);
     }
     console.log('Region displayed:', regionName);
+}
+
+export function closeInfoPanel() {
+    if (infoPanel) {
+        infoPanel.style.display = 'none';
+    }
+}
+
+// Add event listener to the close button
+if (closeButton) {
+    closeButton.addEventListener('click', closeInfoPanel);
 }
