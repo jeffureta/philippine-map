@@ -1,6 +1,7 @@
 export function updateInfoPanel(data, regionDetail) {
     const regionName = regionDetail.regionName;
     const regionId = regionDetail.regionId;
+    const point = regionDetail.point; // Get the click coordinates
 
     // Select elements
     const regionNameEl = document.getElementById('region-name');
@@ -11,8 +12,12 @@ export function updateInfoPanel(data, regionDetail) {
     if (regionNameEl) regionNameEl.textContent = regionName || 'Unknown Region';
     if (regionIdEl) regionIdEl.textContent = regionId || '-';
 
-    // Ensure panel is visible
-    if (infoPanel) infoPanel.style.display = 'block';
+    // Ensure panel is visible and position it
+    if (infoPanel && point) {
+        infoPanel.style.display = 'block';
+        infoPanel.style.left = `${point.x}px`;
+        infoPanel.style.top = `${point.y}px`;
+    }
 
     // Verify data availability (optional usage)
     if (data) {
