@@ -1,6 +1,7 @@
 import { map } from './map.js';
 import { setRegionColor, regionColorExpression } from './color.js';
 import { initFilter } from './filter.js';
+import { handleRegionClick } from './regionClickHandler.js';
 
 map.on('load', function () {
     initFilter(map);
@@ -25,41 +26,8 @@ map.on('load', function () {
         }
     });
 
-    mapCanvas.addEventListener('regionClick', (e) => {
-        const { regionName, properties, point } = e.detail;
 
-        // Check if the map is in interactive mode
-        if (document.getElementById('app').classList.contains('interactive-map-mode')) {
-            // Remove any existing text boxes
-            const existingTextBox = document.getElementById('region-text-box');
-            if (existingTextBox) {
-                existingTextBox.remove();
-            }
 
-            // Create the text box
-            const textBox = document.createElement('div');
-            textBox.id = 'region-text-box';
-            textBox.className = 'region-text-box'; // Add a class for styling
-            textBox.textContent = regionName || 'Unknown Region';
-
-            // Position the text box using the passed point
-            textBox.style.left = `${point.x}px`;
-            textBox.style.top = `${point.y}px`;
-
-            // Append to the map container
-            document.getElementById('map-container').appendChild(textBox);
-        } else {
-            // Format content for the info panel (original logic)
-            let content = `<h3>${regionName || 'Unknown Region'}</h3>`;
-            if (properties) {
-                content += '<ul>';
-                for (const key in properties) {
-                    if (key !== 'ID' && key !== 'NAME_1' && key !== 'name') { // Skip ID and redundant name
-                        content += `<li><strong>${key}:</strong> ${properties[key]}</li>`;
-                    }
-                }
-                content += '</ul>';
-            }
-        }
-    });
+    // Event listener for custom regionClick event
+    mapCanvas.addEventListener('regionClick', handleRegionClick);
 });
