@@ -1,8 +1,16 @@
 import { createPovertyColorExpression215, createPovertyColorExpression365, createPovertyColorExpression685 } from './color.js';
+import { closeInfoPanel } from './infoPanel.js';
 
 export function initFilter(map) {
     console.log('Initializing filter with map:', map);
     const filterPanel = document.getElementById('filter-panel');
+
+    const sidenavTrigger = document.querySelector('.sidenav-trigger');
+    if (sidenavTrigger) {
+        sidenavTrigger.addEventListener('click', () => {
+            closeInfoPanel();
+        });
+    }
 
     // Clear existing content
     filterPanel.innerHTML = '<h5>Map Data</h5>';
