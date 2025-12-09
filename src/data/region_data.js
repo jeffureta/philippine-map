@@ -1,6 +1,6 @@
 
-import mapData from './ph_updated_nir.json';
-import povertyData from './ph-pi-rate.json';
+import mapData from './ph_updated_nir.json' with { type: 'json' };
+import povertyData from './ph-pi-rate.json' with { type: 'json' };
 
 const nameMapping = {
     "Autonomous Region in Muslim Mindanao": "BARMM",

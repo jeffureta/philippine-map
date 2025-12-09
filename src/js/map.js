@@ -35,6 +35,8 @@ export const map = new maplibregl.Map({
     zoom: 5 // Initial zoom level
 });
 
+console.log('Map object initialized', map);
+
 map.on('click', 'philippines-fill', (e) => {
     const regionId = e.features[0].properties.id;
     const regionName = e.features[0].properties.name;
