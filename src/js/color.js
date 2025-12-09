@@ -10,7 +10,7 @@ export const regionColorExpression = [
     'match',
     ['get', 'name'],
     'National Capital Region', '#e6194b',
-    'BARMM', '#3cb44b',
+    'Autonomous Region in Muslim Mindanao', '#3cb44b',
     'Calabarzon', '#ffe119',
     'Western Visayas', '#4363d8',
     'Cordillera Administrative Region', '#f58231',
@@ -22,8 +22,8 @@ export const regionColorExpression = [
     'Bicol Region', '#008080',
     'Eastern Visayas', '#e6beff',
     'Ilocos Region', '#9a6324',
-    'Mimaropa', '#fffac8',
-    'Caraga Region', '#800000',
+    'MIMAROPA Region', '#fffac8',
+    'Caraga', '#800000',
     'Cagayan Valley', '#aaffc3',
     'Soccsksargen', '#808000',
     'Central Luzon', '#ffd8b1',
@@ -75,7 +75,7 @@ async function createPovertyColorExpression(thresholdKey) {
     povertyData.forEach(region => {
         if (region.region_name !== "Philippines") {
             const rate = parsePovertyRate(region[thresholdKey]);
-            const normalizedRate = (rate - minRate) / (maxRate - minRate);
+            const normalizedRate = (maxRate - minRate > 0) ? (rate - minRate) / (maxRate - minRate) : 0;
             const color = lerpColor('#fee5d9', '#a50f15', normalizedRate); // From light red to dark red
 
             colorExpression.push(region.region_name, color);
