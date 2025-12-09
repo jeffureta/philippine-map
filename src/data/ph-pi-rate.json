@@ -7,7 +7,7 @@
         "Year_of_Estimate": 2021
     },
     {
-        "region_name": "Ilocos",
+        "region_name": "Ilocos Region",
         "Poverty_Threshold_2_15": "2.07%",
         "Poverty_Threshold_3_65": "13.87%",
         "Poverty_Threshold_6_85": "55.39%",
@@ -35,7 +35,7 @@
         "Year_of_Estimate": 2021
     },
     {
-        "region_name": "MIMAROPA",
+        "region_name": "Mimaropa",
         "Poverty_Threshold_2_15": "3.46%",
         "Poverty_Threshold_3_65": "20.44%",
         "Poverty_Threshold_6_85": "59.13%",
@@ -98,7 +98,7 @@
         "Year_of_Estimate": 2021
     },
     {
-        "region_name": "SOCCSKSARGEN",
+        "region_name": "Soccsksargen",
         "Poverty_Threshold_2_15": "6.24%",
         "Poverty_Threshold_3_65": "27.79%",
         "Poverty_Threshold_6_85": "65.79%",
@@ -119,14 +119,14 @@
         "Year_of_Estimate": 2021
     },
     {
-        "region_name": "Bangsamoro",
+        "region_name": "BARMM",
         "Poverty_Threshold_2_15": "6.52%",
         "Poverty_Threshold_3_65": "36.66%",
         "Poverty_Threshold_6_85": "86.65%",
         "Year_of_Estimate": 2021
     },
     {
-        "region_name": "Caraga",
+        "region_name": "Caraga Region",
         "Poverty_Threshold_2_15": "6.46%",
         "Poverty_Threshold_3_65": "32.78%",
         "Poverty_Threshold_6_85": "70.39%",

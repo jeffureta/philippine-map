@@ -3565,7 +3565,7 @@
             "properties": {
                 "source": "https://simplemaps.com",
                 "id": "PH13",
-                "name": "Caraga"
+                "name": "Caraga Region"
             },
             "id": 2
         },
@@ -8001,7 +8001,7 @@
             "properties": {
                 "source": "https://simplemaps.com",
                 "id": "PH14",
-                "name": "Autonomous Region in Muslim Mindanao"
+                "name": "BARMM"
             },
             "id": 4
         },
@@ -25919,7 +25919,7 @@
             "properties": {
                 "source": "https://simplemaps.com",
                 "id": "PH05",
-                "name": "Bicol"
+                "name": "Bicol Region"
             },
             "id": 9
         },
@@ -32259,7 +32259,7 @@
             "properties": {
                 "source": "https://simplemaps.com",
                 "id": "PH01",
-                "name": "Ilocos"
+                "name": "Ilocos Region"
             },
             "id": 14
         },

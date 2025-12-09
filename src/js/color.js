@@ -10,7 +10,7 @@ export const regionColorExpression = [
     'match',
     ['get', 'name'],
     'National Capital Region', '#e6194b',
-    'Autonomous Region in Muslim Mindanao', '#3cb44b',
+    'BARMM', '#3cb44b',
     'Calabarzon', '#ffe119',
     'Western Visayas', '#4363d8',
     'Cordillera Administrative Region', '#f58231',
@@ -19,9 +19,9 @@ export const regionColorExpression = [
     'Central Visayas', '#f032e6',
     'Zamboanga Peninsula', '#bcf60c',
     'Davao', '#fabebe',
-    'Bicol', '#008080',
+    'Bicol Region', '#008080',
     'Eastern Visayas', '#e6beff',
-    'Ilocos', '#9a6324',
+    'Ilocos Region', '#9a6324',
     'Mimaropa', '#fffac8',
     'Caraga', '#800000',
     'Cagayan Valley', '#aaffc3',
@@ -37,7 +37,7 @@ const regionNameMapping = {
     "Davao Region": "Davao",
     "MIMAROPA": "Mimaropa",
     "SOCCSKSARGEN": "Soccsksargen",
-    "Bangsamoro": "Autonomous Region in Muslim Mindanao"
+    "BARMM": "Autonomous Region in Muslim Mindanao"
 };
 
 async function getPovertyData() {
@@ -71,7 +71,7 @@ function lerpColor(color1, color2, value) {
 
 async function createPovertyColorExpression(thresholdKey) {
     const povertyData = await getPovertyData();
-    
+
     const rates = povertyData
         .filter(d => d.region_name !== "Philippines")
         .map(d => parsePovertyRate(d[thresholdKey]));
@@ -79,13 +79,13 @@ async function createPovertyColorExpression(thresholdKey) {
     const maxRate = Math.max(...rates);
 
     const colorExpression = ['match', ['get', 'name']];
-    
+
     povertyData.forEach(region => {
         if (region.region_name !== "Philippines") {
             const rate = parsePovertyRate(region[thresholdKey]);
             const normalizedRate = (rate - minRate) / (maxRate - minRate);
             const color = lerpColor('#fee5d9', '#a50f15', normalizedRate); // From light red to dark red
-            
+
             const mapRegionName = regionNameMapping[region.region_name] || region.region_name;
             colorExpression.push(mapRegionName, color);
         }
