@@ -33,11 +33,8 @@ export const regionColorExpression = [
 // --- New code for poverty incidence rate color saturation ---
 
 const regionNameMapping = {
-    "Bicol Region": "Bicol",
     "Davao Region": "Davao",
-    "MIMAROPA": "Mimaropa",
-    "SOCCSKSARGEN": "Soccsksargen",
-    "BARMM": "Autonomous Region in Muslim Mindanao"
+    // "Caraga Region": "Caraga"
 };
 
 async function getPovertyData() {
