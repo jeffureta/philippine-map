@@ -77,58 +77,84 @@ export function initFilter(map) {
     form.addEventListener('change', async (event) => { // Made async to handle promises
         const target = event.target;
 
-        // If a main layer radio is clicked
-        if (target.name === 'map-layer') {
-            const selectedLayerId = target.id;
-            console.log(`Selected layer: ${selectedLayerId}`);
-
-            // Dispatch custom event for script.js to handle
-            const filterEvent = new CustomEvent('filterChange', {
-                detail: {
-                    layerId: selectedLayerId
-                }
-            });
-            map.getCanvas().dispatchEvent(filterEvent);
-
-            // Add 'interactive-map-mode' class to #app when a filter is selected
-            document.getElementById('app').classList.add('interactive-map-mode');
-
-            // Show/Hide sub-layers
-            layers.forEach(layer => {
-                const container = document.getElementById(`sub-layers-${layer.id}`);
-                if (container) {
-                    container.style.display = (layer.id === selectedLayerId) ? 'block' : 'none';
-                }
-            });
-        }
-
-        // If a sub-layer radio is clicked
-        if (target.name.startsWith('sub-layer-')) {
-            console.log(`Selected sub-layer value: ${target.value}`);
-            const subLayerId = target.id;
-            let colorExpressionPromise;
-
-            if (subLayerId === 'pi-2-15') {
-                colorExpressionPromise = createPovertyColorExpression215();
-            } else if (subLayerId === 'pi-3-65') {
-                colorExpressionPromise = createPovertyColorExpression365();
-            } else if (subLayerId === 'pi-6-85') {
-                colorExpressionPromise = createPovertyColorExpression685();
-            }
-
-            if (colorExpressionPromise) {
-                try {
-                    const expression = await colorExpressionPromise;
-                    map.setLayoutProperty('philippines-fill', 'visibility', 'visible'); // Ensure layer is visible
-                    if (map.getLayer('philippines-fill')) { // Assuming 'philippines-fill' is the layer ID for the administrative regions
-                        map.setPaintProperty('philippines-fill', 'fill-color', expression);
-                    } else {
-                        console.warn("Map layer 'philippines-fill' not found for coloring.");
+                    // If a main layer radio is clicked
+                if (target.name === 'map-layer') {
+                    const selectedLayerId = target.id;
+                    console.log(`Selected layer: ${selectedLayerId}`);
+        
+                    let dataType = null;
+                    let subLayerValue = null;
+        
+                    if (selectedLayerId === 'pi-rate') {
+                        dataType = 'poverty incidence';
+                        // If 'pi-rate' is selected, check if a sub-layer is already checked
+                        const checkedSubLayer = document.querySelector(`input[name="sub-layer-${selectedLayerId}"]:checked`);
+                        if (checkedSubLayer) {
+                            subLayerValue = checkedSubLayer.value;
+                        }
                     }
-                } catch (error) {
-                    console.error("Error creating poverty color expression:", error);
+        
+                    // Dispatch custom event for script.js to handle
+                    const filterEvent = new CustomEvent('filterChange', {
+                        detail: {
+                            layerId: selectedLayerId,
+                            dataType: dataType,
+                            subLayer: subLayerValue
+                        }
+                    });
+                    map.getCanvas().dispatchEvent(filterEvent);
+        
+                    // Add 'interactive-map-mode' class to #app when a filter is selected
+                    document.getElementById('app').classList.add('interactive-map-mode');
+        
+                    // Show/Hide sub-layers
+                    layers.forEach(layer => {
+                        const container = document.getElementById(`sub-layers-${layer.id}`);
+                        if (container) {
+                            container.style.display = (layer.id === selectedLayerId) ? 'block' : 'none';
+                        }
+                    });
                 }
-            }
-        }
-    });
+        
+                // If a sub-layer radio is clicked
+                if (target.name.startsWith('sub-layer-')) {
+                    console.log(`Selected sub-layer value: ${target.value}`);
+                    const subLayerId = target.id;
+                    const subLayerValue = target.value;
+                    const parentLayerId = target.name.replace('sub-layer-', ''); // e.g., 'pi-rate'
+        
+                    let colorExpressionPromise;
+        
+                    if (subLayerId === 'pi-2-15') {
+                        colorExpressionPromise = createPovertyColorExpression215();
+                    } else if (subLayerId === 'pi-3-65') {
+                        colorExpressionPromise = createPovertyColorExpression365();
+                    } else if (subLayerId === 'pi-6-85') {
+                        colorExpressionPromise = createPovertyColorExpression685();
+                    }
+        
+                    if (colorExpressionPromise) {
+                        try {
+                            const expression = await colorExpressionPromise;
+                            map.setLayoutProperty('philippines-fill', 'visibility', 'visible'); // Ensure layer is visible
+                            if (map.getLayer('philippines-fill')) { // Assuming 'philippines-fill' is the layer ID for the administrative regions
+                                map.setPaintProperty('philippines-fill', 'fill-color', expression);
+                            } else {
+                                console.warn("Map layer 'philippines-fill' not found for coloring.");
+                            }
+                        } catch (error) {
+                            console.error("Error creating poverty color expression:", error);
+                        }
+                    }
+        
+                    // Dispatch custom event for script.js to handle with sub-layer info
+                    const filterEvent = new CustomEvent('filterChange', {
+                        detail: {
+                            layerId: parentLayerId, // The main layer ID
+                            dataType: 'poverty incidence',
+                            subLayer: subLayerValue
+                        }
+                    });
+                    map.getCanvas().dispatchEvent(filterEvent);
+                }    });
 }
