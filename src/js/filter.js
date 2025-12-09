@@ -1,3 +1,5 @@
+import { createPovertyColorExpression215, createPovertyColorExpression365, createPovertyColorExpression685 } from './color.js';
+
 export function initFilter(map) {
     const filterPanel = document.getElementById('filter-panel');
 
@@ -72,7 +74,7 @@ export function initFilter(map) {
     filterPanel.appendChild(form);
 
     // Add event listener to handle layer switching
-    form.addEventListener('change', (event) => {
+    form.addEventListener('change', async (event) => { // Made async to handle promises
         const target = event.target;
 
         // If a main layer radio is clicked
@@ -103,6 +105,29 @@ export function initFilter(map) {
         // If a sub-layer radio is clicked
         if (target.name.startsWith('sub-layer-')) {
             console.log(`Selected sub-layer value: ${target.value}`);
+            const subLayerId = target.id;
+            let colorExpressionPromise;
+
+            if (subLayerId === 'pi-2-15') {
+                colorExpressionPromise = createPovertyColorExpression215();
+            } else if (subLayerId === 'pi-3-65') {
+                colorExpressionPromise = createPovertyColorExpression365();
+            } else if (subLayerId === 'pi-6-85') {
+                colorExpressionPromise = createPovertyColorExpression685();
+            }
+
+            if (colorExpressionPromise) {
+                try {
+                    const expression = await colorExpressionPromise;
+                    if (map.getLayer('regions')) { // Assuming 'regions' is the layer ID for the administrative regions
+                        map.setPaintProperty('regions', 'fill-color', expression);
+                    } else {
+                        console.warn("Map layer 'regions' not found for coloring.");
+                    }
+                } catch (error) {
+                    console.error("Error creating poverty color expression:", error);
+                }
+            }
         }
     });
 }
