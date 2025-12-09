@@ -119,10 +119,11 @@ export function initFilter(map) {
             if (colorExpressionPromise) {
                 try {
                     const expression = await colorExpressionPromise;
-                    if (map.getLayer('regions')) { // Assuming 'regions' is the layer ID for the administrative regions
-                        map.setPaintProperty('regions', 'fill-color', expression);
+                    map.setLayoutProperty('philippines-fill', 'visibility', 'visible'); // Ensure layer is visible
+                    if (map.getLayer('philippines-fill')) { // Assuming 'philippines-fill' is the layer ID for the administrative regions
+                        map.setPaintProperty('philippines-fill', 'fill-color', expression);
                     } else {
-                        console.warn("Map layer 'regions' not found for coloring.");
+                        console.warn("Map layer 'philippines-fill' not found for coloring.");
                     }
                 } catch (error) {
                     console.error("Error creating poverty color expression:", error);
