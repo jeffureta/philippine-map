@@ -1,3 +1,5 @@
+import unifiedData from '../data/region_data.js';
+
 export const map = new maplibregl.Map({
     container: 'map',
     style: {
@@ -5,7 +7,7 @@ export const map = new maplibregl.Map({
         sources: {
             'philippines': {
                 type: 'geojson',
-                data: 'src/data/ph_updated_nir.json' // Path to your GeoJSON file
+                data: unifiedData
             }
         },
         layers: [

@@ -9,8 +9,9 @@ To keep your code organized and scalable, I recommend the following file structu
 ```
 src/
 ├───data/
-│   ├───ph.json             # GeoJSON for the map
-│   └───region_data.json    # Sample data for regions (e.g., population, etc.)
+│   ├───ph_updated_nir.json # GeoJSON for the map
+│   ├───ph-pi-rate.json     # Poverty incidence rate data
+│   └───region_data.js      # Unified data source
 ├───js/
 │   ├───map.js              # Your existing map initialization
 │   ├───filter.js           # (New) Logic for the filter panel
@@ -263,8 +264,8 @@ Here’s how the modules would work together when a user clicks on a region to s
 
 ### **8. Data Consistency Tests**
 
-To ensure data integrity across different data sources, specific tests are in place.
+To ensure data integrity, a specific test is in place.
 
-**Region Name Consistency (`src/tests/regionNames.test.js`)**
+**Unified Data Integrity (`src/tests/regionNames.test.js`)**
 
-This test verifies that the administrative region names are consistent between `ph_updated_nir.json` (which provides geographic data) and `ph-pi-rate.json` (which contains poverty rate data). It confirms that every region listed in one file exists in the other, preventing mismatches when data from both sources is combined.
+This test verifies that the unified data source (`src/data/region_data.js`) is correctly structured. It confirms that every region feature in the GeoJSON data has been successfully merged with the corresponding poverty rate data, ensuring that the application uses a consistent and complete dataset.

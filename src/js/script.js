@@ -2,24 +2,16 @@ import { map } from './map.js';
 import { setRegionColor, regionColorExpression } from './color.js';
 import { initFilter } from './filter.js';
 import { updateInfoPanel, initInfoPanel } from './infoPanel.js';
+import unifiedData from './data/region_data.js';
 
 let currentDataType = null;
 let currentSubLayer = null;
-let povertyData = null; // To store poverty incidence data
 
 map.on('load', async function () {
     initInfoPanel();
     initFilter(map);
 
     const mapCanvas = map.getCanvas();
-
-    // Load the poverty incidence data once
-    try {
-        const response = await fetch('src/data/ph-pi-rate.json');
-        povertyData = await response.json();
-    } catch (error) {
-        console.error('Failed to load poverty incidence data:', error);
-    }
 
     // Listen for filter changes
     mapCanvas.addEventListener('filterChange', (e) => {
@@ -34,17 +26,8 @@ map.on('load', async function () {
         }
     });
 
-    // Load the data required for the info panel
-    let geoJsonData = null;
-    try {
-        const response = await fetch('src/data/ph_updated_nir.json');
-        geoJsonData = await response.json();
-    } catch (error) {
-        console.error('Failed to load JSON data:', error);
-    }
-
     // Event listener for custom regionClick event
     mapCanvas.addEventListener('regionClick', (e) => {
-        updateInfoPanel(geoJsonData, e.detail, currentDataType, currentSubLayer, povertyData);
+        updateInfoPanel(unifiedData, e.detail, currentDataType, currentSubLayer, unifiedData);
     });
 });

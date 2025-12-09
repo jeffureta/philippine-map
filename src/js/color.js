@@ -32,18 +32,7 @@ export const regionColorExpression = [
 
 // --- New code for poverty incidence rate color saturation ---
 
-async function getPovertyData() {
-    const response = await fetch('src/data/ph-pi-rate.json');
-    const data = await response.json();
-    return data;
-}
-
-function parsePovertyRate(rateStr) {
-    if (typeof rateStr !== 'string') {
-        return rateStr;
-    }
-    return parseFloat(rateStr.replace('%', ''));
-}
+import unifiedData from '../data/region_data.js';
 
 function lerpColor(color1, color2, value) {
     const r1 = parseInt(color1.substring(1, 3), 16);
@@ -62,23 +51,22 @@ function lerpColor(color1, color2, value) {
 }
 
 async function createPovertyColorExpression(thresholdKey) {
-    const povertyData = await getPovertyData();
-
-    const rates = povertyData
-        .filter(d => d.region_name !== "Philippines")
-        .map(d => parsePovertyRate(d[thresholdKey]));
+    const rates = unifiedData.features
+        .map(d => d.properties[thresholdKey.toLowerCase()])
+        .filter(rate => rate !== undefined);
     const minRate = Math.min(...rates);
     const maxRate = Math.max(...rates);
 
     const colorExpression = ['match', ['get', 'name']];
 
-    povertyData.forEach(region => {
-        if (region.region_name !== "Philippines") {
-            const rate = parsePovertyRate(region[thresholdKey]);
+    unifiedData.features.forEach(feature => {
+        const regionName = feature.properties.name;
+        const rate = feature.properties[thresholdKey.toLowerCase()];
+
+        if (rate !== undefined) {
             const normalizedRate = (maxRate - minRate > 0) ? (rate - minRate) / (maxRate - minRate) : 0;
             const color = lerpColor('#fee5d9', '#a50f15', normalizedRate); // From light red to dark red
-
-            colorExpression.push(region.region_name, color);
+            colorExpression.push(regionName, color);
         }
     });
 

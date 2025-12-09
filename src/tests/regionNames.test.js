@@ -1,92 +1,17 @@
-import { it, assert } from './test-helpers.js';
-import { regionColorExpression } from '../js/color.js';
+import { it, assert, assertTrue } from './test-helpers.js';
+import unifiedData from '../data/region_data.js';
 
-it('should have consistent region names between data files', async () => {
-    // Normalization function to make region names comparable
-    const normalizeRegionName = (name) => {
-        if (!name) return '';
-        let normalized = name.toLowerCase();
-        // Remove common administrative terms and special characters
-        normalized = normalized.replace(/\b(region|administrative|peninsula|autonomous|in muslim mindanao)\b/g, '');
-        normalized = normalized.replace(/[^a-z0-9]/g, ''); // Keep only alphanumeric chars
-        return normalized;
-    };
+it('unifiedData should have poverty data for all regions', () => {
+    unifiedData.features.forEach(feature => {
+        const props = feature.properties;
+        assertTrue(props.hasOwnProperty('poverty_threshold_2_15'), `Region ${props.name} should have poverty_threshold_2_15`);
+        assertTrue(typeof props.poverty_threshold_2_15 === 'number', `poverty_threshold_2_15 for ${props.name} should be a number`);
 
-    // Fetch both data files
-    const nirResponse = await fetch('../data/ph_updated_nir.json');
-    const nirData = await nirResponse.json();
+        assertTrue(props.hasOwnProperty('poverty_threshold_3_65'), `Region ${props.name} should have poverty_threshold_3_65`);
+        assertTrue(typeof props.poverty_threshold_3_65 === 'number', `poverty_threshold_3_65 for ${props.name} should be a number`);
 
-    const piRateResponse = await fetch('../data/ph-pi-rate.json');
-    const piRateData = await piRateResponse.json();
-
-    // Extract and normalize region names from the GeoJSON file
-    const nirRegionNames = new Set(
-        nirData.features.map(feature => normalizeRegionName(feature.properties.name))
-    );
-
-    // Extract and normalize region names from the poverty rate data, ignoring the "Philippines" summary entry
-    const piRateRegionNames = new Set(
-        piRateData
-            .filter(region => region.region_name.toLowerCase() !== 'philippines')
-            .map(region => normalizeRegionName(region.region_name))
-    );
-
-    // Find discrepancies between the two sets of names
-    const inPiRateOnly = [...piRateRegionNames].filter(name => !nirRegionNames.has(name));
-    const inNirOnly = [...nirRegionNames].filter(name => !piRateRegionNames.has(name));
-
-    // Build an informative error message if any discrepancies are found
-    const errorMessage = [];
-    if (inPiRateOnly.length > 0) {
-        errorMessage.push(`Regions in ph-pi-rate.json but not in the GeoJSON: [${inPiRateOnly.join(', ')}]`);
-    }
-    if (inNirOnly.length > 0) {
-        errorMessage.push(`Regions in the GeoJSON but not in ph-pi-rate.json: [${inNirOnly.join(', ')}]`);
-    }
-
-    // Assert that there are no differences between the two sets
-    assert(
-        inPiRateOnly.length === 0 && inNirOnly.length === 0,
-        errorMessage.join('; ') || 'Region names are consistent.'
-    );
+        assertTrue(props.hasOwnProperty('poverty_threshold_6_85'), `Region ${props.name} should have poverty_threshold_6_85`);
+        assertTrue(typeof props.poverty_threshold_6_85 === 'number', `poverty_threshold_6_85 for ${props.name} should be a number`);
+    });
 });
 
-it('should have consistent region names between regionColorExpression and poverty data', async () => {
-    // Normalization function
-    const normalizeRegionName = (name) => {
-        if (!name) return '';
-        return name.toLowerCase().replace(/\b(region|administrative|peninsula|autonomous|in muslim mindanao)\b/g, '').replace(/[^a-z0-9]/g, '');
-    };
-
-    // Get region names from regionColorExpression
-    const colorExpressionRegions = new Set();
-    for (let i = 2; i < regionColorExpression.length - 1; i += 2) {
-        colorExpressionRegions.add(normalizeRegionName(regionColorExpression[i]));
-    }
-
-    // Fetch poverty data
-    const piRateResponse = await fetch('../data/ph-pi-rate.json');
-    const piRateData = await piRateResponse.json();
-    const piRateRegionNames = new Set(
-        piRateData
-            .filter(region => region.region_name.toLowerCase() !== 'philippines')
-            .map(region => normalizeRegionName(region.region_name))
-    );
-
-    // Find discrepancies
-    const inColorExprOnly = [...colorExpressionRegions].filter(name => !piRateRegionNames.has(name));
-    const inPiRateOnly = [...piRateRegionNames].filter(name => !colorExpressionRegions.has(name));
-
-    const errorMessage = [];
-    if (inColorExprOnly.length > 0) {
-        errorMessage.push(`Regions in regionColorExpression but not in poverty data: [${inColorExprOnly.join(', ')}]`);
-    }
-    if (inPiRateOnly.length > 0) {
-        errorMessage.push(`Regions in poverty data but not in regionColorExpression: [${inPiRateOnly.join(', ')}]`);
-    }
-
-    assert(
-        inColorExprOnly.length === 0 && inPiRateOnly.length === 0,
-        errorMessage.join('; ') || 'Region names are consistent between color expression and poverty data.'
-    );
-});
