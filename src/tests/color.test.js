@@ -1,5 +1,18 @@
-import { setRegionColor, regionColorExpression } from '../js/color.js';
-import { assert, assertEqual } from './test-helpers.js';
+import { setRegionColor, regionColorExpression, createPovertyColorExpression215, createPovertyColorExpression365, createPovertyColorExpression685 } from '../js/color.js';
+import { it, assert, assertEqual, assertTrue } from './test-helpers.js';
+
+// Mock fetch before imports
+const originalFetch = window.fetch;
+let mockPovertyData = [];
+window.fetch = async (url) => {
+    if (url.endsWith('ph-pi-rate.json')) {
+        return {
+            json: async () => mockPovertyData,
+        };
+    }
+    return originalFetch(url);
+};
+
 
 it('setRegionColor should set paint property if layer exists', () => {
     const mockMap = {
@@ -72,4 +85,66 @@ it('regionColorExpression should have a default fallback color', () => {
     const lastElement = regionColorExpression[regionColorExpression.length - 1];
     assert(typeof lastElement === 'string' && lastElement.startsWith('#'), 'Last element should be a hex color string');
     assertEqual(lastElement, '#6f9c76', 'Default fallback color should be #6f9c76');
+});
+
+it('createPovertyColorExpression should generate a valid color expression', async () => {
+    mockPovertyData = [
+        { "region_name": "Region A", "Poverty_Threshold_2_15": "10%" },
+        { "region_name": "Region B", "Poverty_Threshold_2_15": "20%" },
+        { "region_name": "Philippines", "Poverty_Threshold_2_15": "15%" }
+    ];
+
+    const expression = await createPovertyColorExpression215();
+
+    assertTrue(Array.isArray(expression), 'Expression should be an array');
+    assertEqual(expression[0], 'match', 'Expression should start with "match"');
+    assertEqual(expression[1][0], 'get', 'Second element should be a "get" expression');
+    assertEqual(expression[1][1], 'name', 'It should get the "name" property');
+
+    // Check for region data
+    const regionAIndex = expression.indexOf('Region A');
+    assertTrue(regionAIndex > -1, 'Expression should contain Region A');
+    assertTrue(typeof expression[regionAIndex + 1] === 'string' && expression[regionAIndex + 1].startsWith('#'), 'Region A should have a color string');
+
+    const regionBIndex = expression.indexOf('Region B');
+    assertTrue(regionBIndex > -1, 'Expression should contain Region B');
+    assertTrue(typeof expression[regionBIndex + 1] === 'string' && expression[regionBIndex + 1].startsWith('#'), 'Region B should have a color string');
+
+    // Check that "Philippines" is ignored
+    const philippinesIndex = expression.indexOf('Philippines');
+    assertTrue(philippinesIndex === -1, 'Expression should not contain "Philippines" data');
+
+    // Check for default color
+    const defaultColor = expression[expression.length - 1];
+    assertEqual(defaultColor, '#ccc', 'Expression should have a default color');
+});
+
+it('createPovertyColorExpression should handle different thresholds', async () => {
+    mockPovertyData = [
+        { "region_name": "Region C", "Poverty_Threshold_3_65": "5%" },
+        { "region_name": "Region D", "Poverty_Threshold_6_85": "30%" }
+    ];
+
+    const expression365 = await createPovertyColorExpression365();
+    const regionCIndex = expression365.indexOf('Region C');
+    assertTrue(regionCIndex > -1, '3.65 threshold expression should contain Region C');
+    const regionDIndex365 = expression365.indexOf('Region D');
+    assertTrue(regionDIndex365 === -1, '3.65 threshold expression should not contain Region D');
+
+    const expression685 = await createPovertyColorExpression685();
+    const regionDIndex = expression685.indexOf('Region D');
+    assertTrue(regionDIndex > -1, '6.85 threshold expression should contain Region D');
+    const regionCIndex685 = expression685.indexOf('Region C');
+    assertTrue(regionCIndex685 === -1, '6.85 threshold expression should not contain Region C');
+});
+
+it('createPovertyColorExpression handles single data point gracefully', async () => {
+    mockPovertyData = [
+        { "region_name": "Single Region", "Poverty_Threshold_2_15": "15%" }
+    ];
+
+    const expression = await createPovertyColorExpression215();
+    const regionIndex = expression.indexOf('Single Region');
+    assertTrue(regionIndex > -1, 'Expression should contain the single region');
+    assertEqual(expression[regionIndex + 1], '#fee5d9', 'Single region should have the base color');
 });

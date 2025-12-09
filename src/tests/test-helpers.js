@@ -1,8 +1,8 @@
-function it(description, testFn) {
+export async function it(description, testFn) {
   const li = document.createElement('li');
   li.textContent = description;
   try {
-    testFn();
+    await testFn();
     li.style.color = 'green';
   } catch (error) {
     li.style.color = 'red';
@@ -15,14 +15,16 @@ function it(description, testFn) {
   document.getElementById('test-results').appendChild(li);
 }
 
-function assertEqual(a, b) {
+export function assertEqual(a, b, message) {
   if (a !== b) {
-    throw new Error(`Assertion failed: ${a} !== ${b}`);
+    throw new Error(`Assertion failed: ${a} !== ${b}` + (message ? ` - ${message}` : ''));
   }
 }
 
-function assert(value) {
+export function assert(value, message) {
   if (!value) {
-    throw new Error(`Assertion failed: value is not truthy`);
+    throw new Error('Assertion failed: value is not truthy' + (message ? ` - ${message}` : ''));
   }
 }
+
+export const assertTrue = assert;

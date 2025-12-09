@@ -32,11 +32,6 @@ export const regionColorExpression = [
 
 // --- New code for poverty incidence rate color saturation ---
 
-const regionNameMapping = {
-    "Davao Region": "Davao",
-    // "Caraga Region": "Caraga"
-};
-
 async function getPovertyData() {
     const response = await fetch('src/data/ph-pi-rate.json');
     const data = await response.json();
@@ -83,8 +78,7 @@ async function createPovertyColorExpression(thresholdKey) {
             const normalizedRate = (rate - minRate) / (maxRate - minRate);
             const color = lerpColor('#fee5d9', '#a50f15', normalizedRate); // From light red to dark red
 
-            const mapRegionName = regionNameMapping[region.region_name] || region.region_name;
-            colorExpression.push(mapRegionName, color);
+            colorExpression.push(region.region_name, color);
         }
     });
 

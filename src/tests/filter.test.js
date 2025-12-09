@@ -1,3 +1,5 @@
+import { it, assertEqual } from './test-helpers.js';
+
 it('should filter a list of regions, returning only those that match the query', () => {
   // This is a placeholder test.
   // We'll assume a function `filterRegions` exists in `filter.js`.

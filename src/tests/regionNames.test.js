@@ -1,3 +1,6 @@
+import { it, assert } from './test-helpers.js';
+import { regionColorExpression } from '../js/color.js';
+
 it('should have consistent region names between data files', async () => {
     // Normalization function to make region names comparable
     const normalizeRegionName = (name) => {
@@ -45,5 +48,45 @@ it('should have consistent region names between data files', async () => {
     assert(
         inPiRateOnly.length === 0 && inNirOnly.length === 0,
         errorMessage.join('; ') || 'Region names are consistent.'
+    );
+});
+
+it('should have consistent region names between regionColorExpression and poverty data', async () => {
+    // Normalization function
+    const normalizeRegionName = (name) => {
+        if (!name) return '';
+        return name.toLowerCase().replace(/\b(region|administrative|peninsula|autonomous|in muslim mindanao)\b/g, '').replace(/[^a-z0-9]/g, '');
+    };
+
+    // Get region names from regionColorExpression
+    const colorExpressionRegions = new Set();
+    for (let i = 2; i < regionColorExpression.length - 1; i += 2) {
+        colorExpressionRegions.add(normalizeRegionName(regionColorExpression[i]));
+    }
+
+    // Fetch poverty data
+    const piRateResponse = await fetch('../data/ph-pi-rate.json');
+    const piRateData = await piRateResponse.json();
+    const piRateRegionNames = new Set(
+        piRateData
+            .filter(region => region.region_name.toLowerCase() !== 'philippines')
+            .map(region => normalizeRegionName(region.region_name))
+    );
+
+    // Find discrepancies
+    const inColorExprOnly = [...colorExpressionRegions].filter(name => !piRateRegionNames.has(name));
+    const inPiRateOnly = [...piRateRegionNames].filter(name => !colorExpressionRegions.has(name));
+
+    const errorMessage = [];
+    if (inColorExprOnly.length > 0) {
+        errorMessage.push(`Regions in regionColorExpression but not in poverty data: [${inColorExprOnly.join(', ')}]`);
+    }
+    if (inPiRateOnly.length > 0) {
+        errorMessage.push(`Regions in poverty data but not in regionColorExpression: [${inPiRateOnly.join(', ')}]`);
+    }
+
+    assert(
+        inColorExprOnly.length === 0 && inPiRateOnly.length === 0,
+        errorMessage.join('; ') || 'Region names are consistent between color expression and poverty data.'
     );
 });
