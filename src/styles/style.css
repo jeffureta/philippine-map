@@ -73,19 +73,45 @@ main {
     /* Spacing from cursor/click point */
 }
 
-/* Close button for info panel */
-.close-button {
+/* Close buttons */
+#info-panel .close-button {
     position: absolute;
-    top: 5px; /* Adjusted for better visibility with larger button */
-    right: 5px; /* Adjusted for better visibility with larger button */
-    background: red; /* Added for visibility */
+    top: 8px;
+    right: 8px;
+    background: transparent;
     border: none;
     color: white;
-    font-size: 16px; /* Increased font size */
+    font-size: 22px;
+    font-weight: bold;
     cursor: pointer;
-    padding: 2px 8px; /* Adjusted padding */
-    border-radius: 50%; /* Make it circular */
+    padding: 0;
+    line-height: 1;
     z-index: 1001;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+#info-panel .close-button:hover {
+    opacity: 1;
+}
+
+#filter-panel .close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: #888;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+#filter-panel .close-button:hover {
+    color: #000;
 }
 
 /* Arrow for the bubble */
@@ -127,4 +153,40 @@ main {
 #info-panel .card-title {
     display: none;
     /* Hide 'Region Info' title for cleaner ios look, or style it smaller */
+}
+
+/* Filter Panel Styles */
+#filter-panel {
+    position: absolute;
+    top: 10px;
+    right: -400px; /* Start off-screen */
+    width: 350px;
+    height: auto;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    transition: right 0.3s ease-in-out;
+    z-index: 1002;
+    padding: 20px;
+    border-radius: 5px 0 0 5px;
+}
+
+#filter-panel.open {
+    right: 0; /* Slide in */
+}
+
+#filter-panel h4 {
+    margin-top: 0;
+}
+
+#filter-toggle-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1003;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
