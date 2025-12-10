@@ -193,8 +193,23 @@ main {
 
 #filter-modal .modal-close-btn {
     position: absolute;
-    top: 10px;
+    top: 5px;
     right: 10px;
+    /* Slight adjustment for padding */
     color: white;
     z-index: 1001;
+    font-size: 16px;
+    /* Smaller font size */
+    font-weight: bold;
+    /* Bold weight */
+    text-decoration: none;
+    opacity: 0.7;
+    /* Initial opacity for ease effect */
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+#filter-modal .modal-close-btn:hover {
+    opacity: 1;
+    /* Hover effect */
+    color: #ffffff;
 }

@@ -8,7 +8,7 @@ export function initModal() {
 
         // Inner HTML structure
         modal.innerHTML = `
-            <a href="#!" class="modal-close-btn"><i class="material-icons">close</i></a>
+            <a href="#!" class="modal-close-btn">x</a>
             <div class="card-content white-text">
                 <span class="card-title" id="modal-title">Card Title</span>
                 <p id="modal-description">I am a very simple card. I am good at containing small bits of information.</p>
