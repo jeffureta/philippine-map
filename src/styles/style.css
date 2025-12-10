@@ -61,7 +61,7 @@ main {
     width: max-content;
     max-width: 300px;
     border-radius: 12px;
-    padding: 25px 15px 10px 15px;
+    padding: 15px 15px 10px 15px;
     z-index: 1000;
     display: none;
     /* Hidden by default */
@@ -81,7 +81,7 @@ main {
     background: transparent;
     border: none;
     color: white;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: bold;
     cursor: pointer;
     padding: 0;
