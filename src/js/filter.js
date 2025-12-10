@@ -22,8 +22,16 @@ export function initFilter(map) {
         });
     }
 
-    // Clear existing content
-    filterPanel.innerHTML = '<h5>Map Data</h5>';
+    // Clear existing content but save the close button
+    const closeButton = filterPanel.querySelector('.close-button');
+    filterPanel.innerHTML = '';
+    if (closeButton) {
+        filterPanel.appendChild(closeButton);
+    }
+
+    const header = document.createElement('h5');
+    header.textContent = 'Map Data';
+    filterPanel.appendChild(header);
 
     const layers = [
         { id: 'no-filter', name: 'No Filter', checked: true },
