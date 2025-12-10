@@ -15,12 +15,18 @@ export function updateInfoPanel(data, regionDetail, dataType, subLayer, povertyD
     if (additionalInfoEl) additionalInfoEl.innerHTML = '';
 
     // Conditionally display poverty incidence data
-    if (dataType === 'poverty incidence' && subLayer && povertyData) {
-        const regionPovertyData = povertyData.find(item => item.region_name === regionName);
-        if (regionPovertyData && regionPovertyData[subLayer]) {
-            additionalInfoEl.innerHTML = `<strong>Poverty Incidence (${subLayer.replace(/_/g, ' ')}):</strong> ${regionPovertyData[subLayer]}`;
+    // The subLayer value (e.g., 'Poverty_Threshold_2_15') needs to be converted to lowercase
+    // to match the keys in the unified data properties (e.g., 'poverty_threshold_2_15').
+    if (dataType === 'poverty incidence' && subLayer && regionDetail.properties) {
+        const propertyKey = subLayer.toLowerCase();
+        const povertyValue = regionDetail.properties[propertyKey];
+
+        if (povertyValue !== undefined) {
+            // Format the key for display (e.g., "Threshold $2.15") to match UI
+            const displayLabel = subLayer.replace('Poverty_Threshold_', 'Threshold $').replace('_', '.');
+            additionalInfoEl.innerHTML = `<strong>Poverty Incidence (${displayLabel}):</strong> ${povertyValue}%`;
         } else {
-            additionalInfoEl.innerHTML = `<strong>Poverty Incidence:</strong> N/A`;
+            additionalInfoEl.innerHTML = `<strong>Poverty Incidence:</strong> Result Not Found`;
         }
     }
 
