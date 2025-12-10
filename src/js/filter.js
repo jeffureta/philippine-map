@@ -134,11 +134,20 @@ export function initFilter(map) {
             // Add 'interactive-map-mode' class to #app when a filter is selected
             document.getElementById('app').classList.add('interactive-map-mode');
 
-            // Show/Hide sub-layers
+            // Show/Hide sub-layers and reset selections for hidden layers
             layers.forEach(layer => {
                 const container = document.getElementById(`sub-layers-${layer.id}`);
                 if (container) {
-                    container.style.display = (layer.id === selectedLayerId) ? 'block' : 'none';
+                    const shouldShow = (layer.id === selectedLayerId);
+                    container.style.display = shouldShow ? 'block' : 'none';
+
+                    // If we are hiding this container, uncheck its sub-layer radios
+                    if (!shouldShow) {
+                        const subLayerRadios = container.querySelectorAll('input[type="radio"]');
+                        subLayerRadios.forEach(radio => {
+                            radio.checked = false;
+                        });
+                    }
                 }
             });
         }
