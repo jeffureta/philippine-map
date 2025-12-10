@@ -179,3 +179,14 @@ main {
     border-radius: 5px;
     cursor: pointer;
 }
+
+/* Filter Modal Dialog */
+#filter-modal {
+    position: absolute;
+    /* Changed from fixed to absolute to stay relative to the page if needed, but fixed works better for UI usually. User asked for 'right of the screen just below the header'. */
+    top: 70px;
+    /* Just below header (approx 64px) */
+    right: 20px;
+    width: 300px;
+    z-index: 1000;
+}

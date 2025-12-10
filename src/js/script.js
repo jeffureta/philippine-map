@@ -5,14 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
         import('./color.js'),
         import('./filter.js'),
         import('./infoPanel.js'),
+        import('./modal.js'),
         import('../data/region_data.js')
-    ]).then(([mapModule, colorModule, filterModule, infoPanelModule, regionDataModule]) => {
+    ]).then(([mapModule, colorModule, filterModule, infoPanelModule, modalModule, regionDataModule]) => {
         console.log('All modules loaded successfully');
         const { map } = mapModule;
         const { setRegionColor, regionColorExpression } = colorModule;
         const { initFilter } = filterModule;
         const { updateInfoPanel, initInfoPanel } = infoPanelModule;
+        const { initModal, showFilterModal } = modalModule;
         const unifiedData = regionDataModule.default;
+
+        // Initialize modal
+        initModal();
 
         let currentDataType = null;
         let currentSubLayer = null;
@@ -26,9 +31,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Listen for filter changes
             mapCanvas.addEventListener('filterChange', (e) => {
-                const { layerId, dataType, subLayer } = e.detail;
+                const { layerId, layerName, dataType, subLayer, subLayerName } = e.detail;
                 currentDataType = dataType;
                 currentSubLayer = subLayer;
+
+                // Show modal with filter info
+                const title = subLayerName ? `${layerName} - ${subLayerName}` : layerName;
+                const description = subLayerName
+                    ? `Displaying data for ${subLayerName} under ${layerName}.`
+                    : `You have selected the ${layerName} layer.`;
+
+                showFilterModal({
+                    title: title,
+                    description: description
+                });
 
                 if (layerId === 'regions') {
                     setRegionColor(map, 'philippines-fill', regionColorExpression);

@@ -121,12 +121,17 @@ export function initFilter(map) {
                 }
             }
 
+            const selectedLayer = layers.find(l => l.id === selectedLayerId);
+            const layerName = selectedLayer ? selectedLayer.name : selectedLayerId;
+
             // Dispatch custom event for script.js to handle
             const filterEvent = new CustomEvent('filterChange', {
                 detail: {
                     layerId: selectedLayerId,
+                    layerName: layerName,
                     dataType: dataType,
-                    subLayer: subLayerValue
+                    subLayer: subLayerValue,
+                    subLayerName: null
                 }
             });
             map.getCanvas().dispatchEvent(filterEvent);
@@ -183,12 +188,21 @@ export function initFilter(map) {
                 }
             }
 
+            // Find parent and sub-layer names
+            const parentLayer = layers.find(l => l.id === parentLayerId);
+            const subLayerObj = parentLayer ? parentLayer.subLayers.find(s => s.id === subLayerId) : null;
+
+            const layerName = parentLayer ? parentLayer.name : parentLayerId;
+            const subLayerName = subLayerObj ? subLayerObj.name : subLayerId;
+
             // Dispatch custom event for script.js to handle with sub-layer info
             const filterEvent = new CustomEvent('filterChange', {
                 detail: {
                     layerId: parentLayerId, // The main layer ID
+                    layerName: layerName,
                     dataType: 'poverty incidence',
-                    subLayer: subLayerValue
+                    subLayer: subLayerValue,
+                    subLayerName: subLayerName
                 }
             });
             map.getCanvas().dispatchEvent(filterEvent);
