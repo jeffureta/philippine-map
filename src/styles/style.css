@@ -76,15 +76,16 @@ main {
 /* Close button for info panel */
 .close-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
+    top: 5px; /* Adjusted for better visibility with larger button */
+    right: 5px; /* Adjusted for better visibility with larger button */
+    background: red; /* Added for visibility */
     border: none;
     color: white;
-    font-size: 12px;
+    font-size: 16px; /* Increased font size */
     cursor: pointer;
-    padding: 0 5px;
-    z-index: 1001; /* Ensure it's above the info panel content */
+    padding: 2px 8px; /* Adjusted padding */
+    border-radius: 50%; /* Make it circular */
+    z-index: 1001;
 }
 
 /* Arrow for the bubble */

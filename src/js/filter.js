@@ -5,6 +5,16 @@ export function initFilter(map) {
     console.log('Initializing filter with map:', map);
     const filterPanel = document.getElementById('filter-panel');
 
+    const filterPanelCloseButton = filterPanel.querySelector('.close-button');
+    if (filterPanelCloseButton) {
+        filterPanelCloseButton.addEventListener('click', () => {
+            const sidenavElement = document.getElementById('slide-out');
+            if (sidenavElement && M.Sidenav.getInstance(sidenavElement)) {
+                M.Sidenav.getInstance(sidenavElement).close();
+            }
+        });
+    }
+
     const sidenavTrigger = document.querySelector('.sidenav-trigger');
     if (sidenavTrigger) {
         sidenavTrigger.addEventListener('click', () => {
