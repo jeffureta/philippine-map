@@ -32,6 +32,13 @@ export function showFilterModal(layerInfo) {
     const modal = document.getElementById('filter-modal');
     if (!modal) return;
 
+    // Check if 'no filter' is selected
+    const noFilterRadio = document.getElementById('no-filter');
+    if (noFilterRadio && noFilterRadio.checked) {
+        hideFilterModal();
+        return;
+    }
+
     const titleCtx = modal.querySelector('#modal-title');
     const descCtx = modal.querySelector('#modal-description');
 
