@@ -45,6 +45,53 @@ export function showFilterModal(layerInfo) {
     if (titleCtx) titleCtx.textContent = layerInfo.title || 'Filter Selected';
     if (descCtx) descCtx.textContent = layerInfo.description || `You have selected the ${layerInfo.title} layer.`;
 
+    // Clear existing legend
+    const existingLegend = modal.querySelector('.legend-container');
+    if (existingLegend) {
+        existingLegend.remove();
+    }
+
+    // Add legend if provided
+    if (layerInfo.legendItems && layerInfo.legendItems.length > 0) {
+        const legendContainer = document.createElement('div');
+        legendContainer.className = 'legend-container';
+        legendContainer.style.marginTop = '20px';
+        legendContainer.style.display = 'grid';
+        legendContainer.style.gridTemplateColumns = 'repeat(2, 1fr)';
+        legendContainer.style.gap = '10px';
+        legendContainer.style.maxHeight = '300px';
+        legendContainer.style.overflowY = 'auto';
+
+        layerInfo.legendItems.forEach(item => {
+            const legendItem = document.createElement('div');
+            legendItem.className = 'legend-item';
+            legendItem.style.display = 'flex';
+            legendItem.style.alignItems = 'center';
+
+            const colorBox = document.createElement('div');
+            colorBox.className = 'legend-color';
+            colorBox.style.width = '20px';
+            colorBox.style.height = '20px';
+            colorBox.style.backgroundColor = item.color;
+            colorBox.style.marginRight = '10px';
+            colorBox.style.border = '1px solid #ccc';
+
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'legend-name';
+            nameSpan.textContent = item.name;
+            nameSpan.style.color = 'white';
+
+            legendItem.appendChild(colorBox);
+            legendItem.appendChild(nameSpan);
+            legendContainer.appendChild(legendItem);
+        });
+
+        const cardContent = modal.querySelector('.card-content');
+        if (cardContent) {
+            cardContent.appendChild(legendContainer);
+        }
+    }
+
     modal.style.display = 'block';
 }
 

@@ -41,9 +41,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     ? `Displaying data for ${subLayerName} under ${layerName}.`
                     : `You have selected the ${layerName} layer.`;
 
+                // Prepare legend items if 'regions' layer is selected
+                let legendItems = [];
+                if (layerId === 'regions') {
+                    // regionColorExpression import inside scope or global?
+                    // It is imported as 'regionColorExpression' from 'color.js' at the top levelPromise
+                    // Format: ['match', ['get', 'name'], 'Region 1', 'Color 1', ..., 'Default']
+                    for (let i = 2; i < regionColorExpression.length - 1; i += 2) {
+                        legendItems.push({
+                            name: regionColorExpression[i],
+                            color: regionColorExpression[i + 1]
+                        });
+                    }
+                }
+
                 showFilterModal({
                     title: title,
-                    description: description
+                    description: description,
+                    legendItems: legendItems
                 });
 
                 if (layerId === 'regions') {
